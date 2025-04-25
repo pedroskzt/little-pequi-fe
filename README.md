@@ -1,54 +1,87 @@
-# React + TypeScript + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🚀 React TypeScript Project
 
-Currently, two official plugins are available:
+A modern web application built with cutting-edge technologies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[![React](https://img.shields.io/badge/React-19.0.0-61DAFB?style=flat&logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-3178C6?style=flat&logo=typescript)](https://www.typescriptlang.org/)
+[![Material-UI](https://img.shields.io/badge/MUI-7.0.2-0081CB?style=flat&logo=mui)](https://mui.com/)
+[![Storybook](https://img.shields.io/badge/Storybook-8.6.12-FF4785?style=flat&logo=storybook)](https://storybook.js.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.3.1-646CFF?style=flat&logo=vite)](https://vitejs.dev/)
 
-## Expanding the ESLint configuration
+</div>
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📚 Table of Contents
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- [Features](#-features)
+- [Quick Start](#-quick-start)
+- [Development](#-development)
+- [Testing](#-testing)
+- [Project Structure](#-project-structure)
+- [Tech Stack](#-tech-stack)
+
+## ✨ Features
+
+- 🎨 Modern UI with Material-UI components
+- 📱 Responsive design out of the box
+- 🔥 Fast development and building with Vite
+- 📚 Component documentation with Storybook
+- ✅ Comprehensive testing suite
+- 🛣️ Client-side routing
+- 🎭 Theme customization
+
+## 🚀 Quick Start
+
+
+# Clone the repository
+```bash
+git clone <repository-url>
+````
+# Install dependencies
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+# Start development server
+```bash
+npm run dev
 ```
+
+## 💻 Development
+
+# Start Storybook
+```bash
+npm run storybook
+```
+
+## 📁 Project Structure
+
+```
+src/
+├── components/     # Reusable components
+├── pages/         # Application pages
+├── routes/        # Routing configuration
+├── assets/        # Static assets
+├── interfaces/    # TypeScript interfaces
+├── theme/         # MUI theme customization
+└── tests/         # Test files
+```
+
+## 🛠️ Tech Stack
+
+### Core
+- **React** 19.0.0
+- **TypeScript** 5.7.2
+- **Material-UI** 7.0.2
+- **React Router** 7.5.1
+
+### Development
+- **Vite** 6.3.1
+- **ESLint** 9.22.0
+- **Storybook** 8.6.12
+
+### Styling
+- **MUI Icons** 7.0.2
+
+---
