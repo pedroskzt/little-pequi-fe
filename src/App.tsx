@@ -1,26 +1,39 @@
 import LpRoutes from './routes/index.tsx';
 import {BrowserRouter} from 'react-router-dom';
 import {ThemeProvider, CssBaseline, createTheme} from "@mui/material";
+import LpHeader from "./components/LpHeader/LpHeader.tsx";
+import LpNavBar from "./components/LpNavBar/LpNavBar.tsx";
+import LpFooter from "./components/LpFooter/LpFooter.tsx";
 
-const darkTheme = createTheme({
+const customTheme = createTheme({
     palette: {
-        mode: 'light',
         primary: {
             main: '#F9D259',
         },
         secondary: {
             main: '#FFF4F4',
         },
+        text: {
+            primary: '#A66411',
+            secondary: 'rgba(166, 100, 17, 0.65)',
+        },
+
     },
+    typography: {
+        fontFamily: 'Roboto',
+    }
 });
 
 function App() {
     return (
 
         <BrowserRouter>
-            <ThemeProvider theme={darkTheme}>
+            <ThemeProvider theme={customTheme}>
                 <CssBaseline>
-                    <LpRoutes/>
+                        <LpHeader/>
+                        <LpNavBar/>
+                        <LpRoutes/>
+                        <LpFooter/>
                 </CssBaseline>
             </ThemeProvider>
         </BrowserRouter>
