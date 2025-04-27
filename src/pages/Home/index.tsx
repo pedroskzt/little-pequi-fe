@@ -2,18 +2,13 @@ import grill from "../../assets/home/Grill.jpg";
 import salad from "../../assets/home/salad.jpg";
 import headChef from "../../assets/home/head_chef.jpg";
 import './index.css'
-import LpHeader from "../../components/LpHeader/LpHeader.tsx";
-import LpNavBar from "../../components/LpNavBar/LpNavBar.tsx";
-import LpFooter from "../../components/LpFooter/LpFooter.tsx";
 import LpBanner from "../../components/LpBanner/LpBanner.tsx";
 import LpCard from "../../components/LpCard/LpCard.tsx";
-import {Container, Stack} from "@mui/material";
+import {Container, Divider, List, ListItem, ListItemText, Stack} from "@mui/material";
 
 export const App = () => {
     return (
         <>
-            <LpHeader/>
-            <LpNavBar/>
             <LpBanner/>
             <Container sx={{maxWidth: "sm"}}>
                 <Stack
@@ -44,15 +39,31 @@ export const App = () => {
                         description: "The Little Pequi Restaurant is open 7 days a week, except for public holidays."
 
                     }}>
-                        <ul>
-                            <li>Mon - Fri: 2pm - 10pm</li>
-                            <li>Sat: 2pm - 11pm</li>
-                            <li>Sun: 2pm - 9pm</li>
-                        </ul>
+                        <List dense={true} disablePadding={true}>
+                            <Divider variant="middle" sx={{my: 1}}/>
+                            <ListItem dense={true} disablePadding={true}>
+                                <ListItemText
+                                    primary="Monday to Friday"
+                                    secondary="2pm - 10pm"
+                                />
+                            </ListItem>
+                            <ListItem dense={true} disablePadding={true}>
+                                <ListItemText
+                                    primary="Saturday"
+                                    secondary="2pm - 11pm"
+                                />
+                            </ListItem>
+                            <ListItem dense={true} disablePadding={true}>
+                                <ListItemText
+                                    primary="Sunday"
+                                    secondary="2pm - 9pm"
+                                />
+                            </ListItem>
+                        </List>
+
                     </LpCard>
                 </Stack>
             </Container>
-            <LpFooter/>
         </>
     )
 }

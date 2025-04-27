@@ -7,45 +7,34 @@ const About = () => {
                 <div className="row">
                     <div className="column">
                         <p>
-                            Based in Chicago, Illinois, Little Lemon is a family owned
-                            Mediterranean restaurant, focused on traditional recipes served with a
-                            modern twist.
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                            unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                            survived not only five centuries, but also the leap into electronic typesetting, remaining
+                            essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
+                            containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                            Aldus PageMaker including versions of Lorem Ipsum.
                         </p>
                         <p>
-                            The chefs draw inspiration from Italian, Greek, and Turkish culture
-                            and have a menu of 12-15 items that they rotate seasonally.
-                        </p>
-
-                        <p>
-                            The restaurant has a rustic and relaxed atmosphere with moderate
-                            prices, making it a popular place for a meal any time of the day.
-                        </p>
-
-                        <p>
-                            Little Lemon is owned by two Italian brothers, Mario and Adrian, who
-                            moved to the United States to pursue their shared dream of owning a
-                            restaurant.
-                        </p>
-
-                        <p>
-                            To craft the menu, Mario relies on family recipes and his experience
-                            as a chef in Italy.
-                        </p>
-
-                        <p>
-                            Adrian does all the marketing for the restaurant and led the effort to
-                            expand the menu beyond classic Italian to incorporate additional
-                            cuisines from the mediterranean region.
+                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
+                            of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock,
+                            a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure
+                            Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the
+                            word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from
+                            sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and
+                            Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very
+                            popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
+                            amet..", comes from a line in section 1.10.32.
                         </p>
                     </div>
                     <div className="column">
                         <figure className="figure">
                             <img
-                                src="img/mario-and-adrian.jpg'"
-                                alt="Mario and Adrian"
+                                src="#'"
+                                alt="Lorem Ipsum"
                             />
                             <figcaption className="figure-caption">
-                                Little Lemon owners Mario and Adrian.
+                                Little Pequi owners Lorem and Ipsom.
                             </figcaption>
                         </figure>
                     </div>

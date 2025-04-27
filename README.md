@@ -17,7 +17,6 @@ A modern web application built with cutting-edge technologies
 - [Features](#-features)
 - [Quick Start](#-quick-start)
 - [Development](#-development)
-- [Testing](#-testing)
 - [Project Structure](#-project-structure)
 - [Tech Stack](#-tech-stack)
 

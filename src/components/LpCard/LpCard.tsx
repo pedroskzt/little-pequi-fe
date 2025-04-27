@@ -1,7 +1,8 @@
 import ICard from "../../interfaces/ICard.ts";
 import {ReactElement} from "react";
 import Card from '@mui/material/Card'
-import {CardContent, CardMedia, Typography} from "@mui/material";
+import {CardActions, CardContent, CardMedia, Typography, Link as MuiLink} from "@mui/material";
+import LpButton from "../LpButton/LpButton.tsx";
 
 
 interface ICardProps {
@@ -11,17 +12,22 @@ interface ICardProps {
 
 
 const LpCard = ({cardProps, children}: ICardProps) => {
-    // console.log(cardProps);
     return (
         <article>
-            <Card variant="elevation" sx={{ minHeight: '100%', maxWidth: 345}}>
+            <Card variant="elevation" sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                minHeight: '100%',
+                maxWidth: 345
+            }}>
                 <CardMedia
                     component="img"
                     image={cardProps.image}
-                    title={cardProps.imageAlt}
+                    alt={cardProps.imageAlt}
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h4">
+                    <Typography gutterBottom variant="h5">
                         {cardProps.title}
                     </Typography>
                     <Typography variant="body2">
@@ -29,6 +35,12 @@ const LpCard = ({cardProps, children}: ICardProps) => {
                     </Typography>
                     {children}
                 </CardContent>
+
+                {cardProps.link && <CardActions sx={{marginBlockStart: 'auto'}}>
+                    <LpButton component={MuiLink} href={cardProps.link}>
+                        {cardProps.linkText}
+                    </LpButton>
+                </CardActions>}
 
             </Card>
         </article>
