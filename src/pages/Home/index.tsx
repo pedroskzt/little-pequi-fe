@@ -1,7 +1,6 @@
 import grill from "../../assets/home/Grill.jpg";
 import salad from "../../assets/home/salad.jpg";
 import headChef from "../../assets/home/head_chef.jpg";
-import './index.css'
 import LpBanner from "../../components/LpBanner/LpBanner.tsx";
 import LpCard from "../../components/LpCard/LpCard.tsx";
 import {Container, Divider, List, ListItem, ListItemText, Stack} from "@mui/material";
@@ -10,7 +9,7 @@ export const App = () => {
     return (
         <>
             <LpBanner/>
-            <Container sx={{maxWidth: "sm"}}>
+            <Container sx={{my: 2}}>
                 <Stack
                     direction={{xs: 'column', sm: 'row'}}
                     spacing={2}

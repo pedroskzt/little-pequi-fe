@@ -1,12 +1,16 @@
+import {Container, Grid, Stack, Typography} from "@mui/material";
+
 const About = () => {
     return (
-
-        <section>
-            <article>
-                <h1>About Us</h1>
-                <div className="row">
-                    <div className="column">
-                        <p>
+        <Container sx={{my: 3}}>
+            <Stack direction={"column"} spacing={2}>
+                <Grid container spacing={3}>
+                    <Grid container direction={"column"} size={4} justifyContent={"center"}>
+                        <img src="/src/assets/about/pequi.jpg" alt="Real Pequi photo"/>
+                    </Grid>
+                    <Grid size={8}>
+                        <Typography variant="h3">About Us</Typography>
+                        <Typography variant="body1" textAlign={"justify"} mb={1}>
                             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                             Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
                             unknown printer took a galley of type and scrambled it to make a type specimen book. It has
@@ -14,8 +18,8 @@ const About = () => {
                             essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
                             containing Lorem Ipsum passages, and more recently with desktop publishing software like
                             Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
-                        <p>
+                        </Typography>
+                        <Typography textAlign={"justify"}>
                             Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
                             of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock,
                             a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure
@@ -25,22 +29,40 @@ const About = () => {
                             Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very
                             popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
                             amet..", comes from a line in section 1.10.32.
-                        </p>
-                    </div>
-                    <div className="column">
-                        <figure className="figure">
-                            <img
-                                src="#'"
-                                alt="Lorem Ipsum"
-                            />
-                            <figcaption className="figure-caption">
-                                Little Pequi owners Lorem and Ipsom.
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-            </article>
-        </section>
+                        </Typography>
+                    </Grid>
+
+                </Grid>
+                <Grid container spacing={3}>
+                    <Grid size={8}>
+                        <Typography variant="h3">Tech Stack</Typography>
+                        <Typography variant="body1" textAlign={"justify"} mb={1}>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                            unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                            survived not only five centuries, but also the leap into electronic typesetting, remaining
+                            essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
+                            containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                            Aldus PageMaker including versions of Lorem Ipsum.
+                        </Typography>
+                        <Typography textAlign={"justify"}>
+                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
+                            of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock,
+                            a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure
+                            Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the
+                            word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from
+                            sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and
+                            Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very
+                            popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
+                            amet..", comes from a line in section 1.10.32.
+                        </Typography>
+                    </Grid>
+                    <Grid container direction={"column"} size={4} justifyContent={"center"}>
+                        <img src="/src/assets/about/muiTS.png" alt="Real Pequi photo"/>
+                    </Grid>
+                </Grid>
+            </Stack>
+        </Container>
     )
 }
 
