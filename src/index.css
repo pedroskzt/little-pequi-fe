@@ -22,3 +22,9 @@ time, mark, audio, video {
     --secondary-color: #FFF4F4;
     --tertiary-color: #A66411;
 }
+
+img {
+    max-width: 100%;
+    height: auto;
+    box-sizing: border-box;
+}
