@@ -1,5 +1,6 @@
-import {Container, Link as MuiLink, Stack, Typography} from "@mui/material";
+import {Container, Stack, Typography} from "@mui/material";
 import {css} from "@emotion/react";
+import {Link} from "react-router-dom";
 import './LpBanner.css'
 
 const banner = css({
@@ -7,7 +8,7 @@ const banner = css({
 })
 
 
-export const LpBanner = () => {
+const LpBanner = () => {
     return (
         <Container className={'banner'} maxWidth={false} sx={{...banner}}>
             <Stack spacing={2} sx={{
@@ -20,7 +21,7 @@ export const LpBanner = () => {
                 <Typography>
                     30% Off This Weekend
                 </Typography>
-                <MuiLink className={'banner-link'} href="#" underline="none" color="#FFF"> Book now </MuiLink>
+                <Link className={'banner-link'} to="#" color="#FFF"> Book now </Link>
             </Stack>
         </Container>
     )

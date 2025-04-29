@@ -3,11 +3,16 @@ import MenuPages from "./Pages/MenuPages.tsx";
 import NavPages from "./Pages/NavPages.tsx";
 import MenuUser from "./MenuUser/MenuUser.tsx";
 import {useEffect, useState} from "react";
+import LpButton from "../LpButton/LpButton.tsx";
+import {Link} from "react-router-dom";
 
 
-export const LpNavBar = () => {
+
+const LpNavBar = () => {
 
     const [fixedNav, setFixedNav] = useState(0);
+    const [signedIn, setSignedIn] = useState(false);
+
 
     const handleScroll = () => {
         if (window !== undefined) {
@@ -47,17 +52,19 @@ export const LpNavBar = () => {
                 marginBottom: "1rem",
                 padding: "0 1rem",
                 top: 0,
-                position: fixedNav ? 'fixed' : 'static'
+                position: fixedNav ? 'fixed' : 'static',
+                zIndex: 1000
             }}>
                 <Toolbar disableGutters>
                     {/*Small screen Menu*/}
                     <MenuPages/>
-
-                    {/*Regular/Large screen Menu*/}
+                    {/*Medium/Large screen Menu*/}
                     <NavPages/>
-
                     {/*User Menu*/}
-                    <MenuUser/>
+                    <MenuUser signIn={signedIn}/>
+                    <LpButton hidden={!signedIn} component={Link} onClick={() => setSignedIn(true)} variant="contained" to={'/auth/sign-in'}>
+                        Sign-in
+                    </LpButton>
                 </Toolbar>
             </AppBar>
             <Box sx={{marginTop: `${fixedNav}px`}}/>

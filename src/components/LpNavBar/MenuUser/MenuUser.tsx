@@ -1,10 +1,13 @@
+import {Avatar, Box, IconButton, Tooltip, Menu, MenuItem, Typography} from "@mui/material";
 import {MouseEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {Avatar, Box, IconButton, Tooltip, Menu, MenuItem, Typography} from "@mui/material";
 
-const userMenu = ['Orders', 'Account', 'Logout'];
+interface IMenuUserProps {
+    signIn: boolean;
+}
 
-const MenuUser = () => {
+
+const MenuUser = ({signIn}: IMenuUserProps) => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
     const navigate = useNavigate();
@@ -17,12 +20,26 @@ const MenuUser = () => {
         setAnchorElUser(null);
     };
 
-    const handleClick = () => {
+    const handleClick = (event: MouseEvent<HTMLElement>) => {
+        const selection = event.currentTarget.textContent;
         handleCloseUserMenu();
-        navigate('/about');
+        switch (selection) {
+            case 'Account':
+                navigate('/user/account');
+                break;
+            case 'Orders':
+                navigate('/user/orders');
+                break;
+            case 'Logout':
+                navigate('/');
+                break;
+        }
     }
     return (
-        <Box sx={{flexGrow: 0}}>
+        <Box sx={{
+            flexGrow: 0,
+            display: signIn ? 'flex' : 'none',
+        }}>
             <Tooltip title="Open user menu">
                 <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                     <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
@@ -32,6 +49,7 @@ const MenuUser = () => {
                 sx={{
                     mt: '45px'
                 }}
+                disableScrollLock={true}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -46,19 +64,45 @@ const MenuUser = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
             >
-                {userMenu.map((userMenuItem) => (
-                    <MenuItem key={userMenuItem} onClick={handleClick}
-                              sx={{
-                                  ":hover": {backgroundColor: "var(--secondary-color)"}
-                              }}>
-                        <Typography sx={{
-                            textAlign: 'center',
-                            color: 'var(--tertiary-color)',
-                            fontSize: '1rem',
-                            fontWeight: 'bolder'
-                        }}>{userMenuItem}</Typography>
-                    </MenuItem>
-                ))}
+                <MenuItem onClick={handleClick}
+                          sx={{
+                              ":hover": {backgroundColor: "var(--secondary-color)"}
+                          }}>
+                    <Typography sx={{
+                        textAlign: 'center',
+                        color: 'var(--tertiary-color)',
+                        fontSize: '1rem',
+                        fontWeight: 'bolder'
+                    }}>
+                        Account
+                    </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleClick}
+                          sx={{
+                              ":hover": {backgroundColor: "var(--secondary-color)"}
+                          }}>
+                    <Typography sx={{
+                        textAlign: 'center',
+                        color: 'var(--tertiary-color)',
+                        fontSize: '1rem',
+                        fontWeight: 'bolder'
+                    }}>
+                        Orders
+                    </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleClick}
+                          sx={{
+                              ":hover": {backgroundColor: "var(--secondary-color)"}
+                          }}>
+                    <Typography sx={{
+                        textAlign: 'center',
+                        color: 'var(--tertiary-color)',
+                        fontSize: '1rem',
+                        fontWeight: 'bolder'
+                    }}>
+                        Logout
+                    </Typography>
+                </MenuItem>
             </Menu>
         </Box>
     )
