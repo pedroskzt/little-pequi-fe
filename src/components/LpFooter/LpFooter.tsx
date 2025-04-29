@@ -1,7 +1,7 @@
 import logoFooter from "../../assets/home/logo_footer.png";
 import {Stack, Typography} from "@mui/material";
 
-export const LpFooter = () => {
+const LpFooter = () => {
     return (
 
         <Stack direction="row" spacing={1} gap={"2rem 1rem"} aria-label={"Footer"} sx={{

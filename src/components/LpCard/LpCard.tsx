@@ -1,8 +1,9 @@
 import ICard from "../../interfaces/ICard.ts";
 import {ReactElement} from "react";
 import Card from '@mui/material/Card'
-import {CardActions, CardContent, CardMedia, Typography, Link as MuiLink} from "@mui/material";
+import {CardActions, CardContent, CardMedia, Typography} from "@mui/material";
 import LpButton from "../LpButton/LpButton.tsx";
+import {Link} from "react-router-dom";
 
 
 interface ICardProps {
@@ -14,7 +15,7 @@ interface ICardProps {
 const LpCard = ({cardProps, children}: ICardProps) => {
     return (
         <article>
-            <Card variant="elevation" sx={{
+            <Card variant="elevation" elevation={9} sx={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -37,7 +38,7 @@ const LpCard = ({cardProps, children}: ICardProps) => {
                 </CardContent>
 
                 {cardProps.link && <CardActions sx={{marginBlockStart: 'auto'}}>
-                    <LpButton component={MuiLink} href={cardProps.link}>
+                    <LpButton component={Link} to={cardProps.link}>
                         {cardProps.linkText}
                     </LpButton>
                 </CardActions>}

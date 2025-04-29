@@ -1,9 +1,6 @@
 import LpRoutes from './routes/index.tsx';
 import {BrowserRouter} from 'react-router-dom';
 import {ThemeProvider, CssBaseline, createTheme} from "@mui/material";
-import LpHeader from "./components/LpHeader/LpHeader.tsx";
-import LpNavBar from "./components/LpNavBar/LpNavBar.tsx";
-import LpFooter from "./components/LpFooter/LpFooter.tsx";
 
 const customTheme = createTheme({
     palette: {
@@ -30,10 +27,7 @@ function App() {
         <BrowserRouter>
             <ThemeProvider theme={customTheme}>
                 <CssBaseline>
-                        <LpHeader/>
-                        <LpNavBar/>
-                        <LpRoutes/>
-                        <LpFooter/>
+                    <LpRoutes/>
                 </CssBaseline>
             </ThemeProvider>
         </BrowserRouter>

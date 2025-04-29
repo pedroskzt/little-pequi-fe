@@ -5,7 +5,7 @@ import LpBanner from "../../components/LpBanner/LpBanner.tsx";
 import LpCard from "../../components/LpCard/LpCard.tsx";
 import {Container, Divider, List, ListItem, ListItemText, Stack} from "@mui/material";
 
-export const App = () => {
+const App = () => {
     return (
         <>
             <LpBanner/>
