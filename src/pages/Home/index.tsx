@@ -4,8 +4,21 @@ import headChef from "../../assets/home/head_chef.jpg";
 import LpBanner from "../../components/LpBanner/LpBanner.tsx";
 import LpCard from "../../components/LpCard/LpCard.tsx";
 import {Container, Divider, List, ListItem, ListItemText, Stack} from "@mui/material";
+import axios from "axios";
 
 const App = () => {
+
+    axios.get('http://localhost/api/v1/menu-items')
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.log(error);
+        }
+        )
+
+
+
     return (
         <>
             <LpBanner/>
