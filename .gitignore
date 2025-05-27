@@ -1,3 +1,7 @@
+# Environment Variables
+.env
+.env.dev
+.env.prod
 # Logs
 logs
 *.log
