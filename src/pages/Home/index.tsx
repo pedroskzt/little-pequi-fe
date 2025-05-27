@@ -4,21 +4,8 @@ import headChef from "../../assets/home/head_chef.jpg";
 import LpBanner from "../../components/LpBanner/LpBanner.tsx";
 import LpCard from "../../components/LpCard/LpCard.tsx";
 import {Container, Divider, List, ListItem, ListItemText, Stack} from "@mui/material";
-import axios from "axios";
 
 const App = () => {
-
-    axios.get('http://localhost/api/v1/menu-items')
-        .then(response => {
-            console.log(response.data);
-        })
-        .catch(error => {
-            console.log(error);
-        }
-        )
-
-
-
     return (
         <>
             <LpBanner/>
@@ -32,7 +19,7 @@ const App = () => {
                         image: grill,
                         imageAlt: "Grilled Mediterranean dishes",
                         description: "The best dishes in town!",
-                        link: "#",
+                        link: "/menu",
                         linkText: "Menu"
                     }}/>
                     <LpCard cardProps={{
@@ -40,7 +27,7 @@ const App = () => {
                         image: salad,
                         imageAlt: "Fresh Mediterranean salad",
                         description: "Reserve your table for an Italian, Greek, and Turkish dining experience.",
-                        link: "#",
+                        link: "/reservations",
                         linkText: "Book your table now",
 
                     }}/>
