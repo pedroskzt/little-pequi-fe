@@ -1,16 +1,20 @@
-import {Avatar, Box, IconButton, Tooltip, Menu, MenuItem, Typography} from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
 import {MouseEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
-
-interface IMenuUserProps {
-    signIn: boolean;
-}
+import {useAuth} from "../../../context/auth/AuthContext.tsx";
 
 
-const MenuUser = ({signIn}: IMenuUserProps) => {
+const MenuUser = () => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-
+    const {setIsSignedIn} = useAuth();
     const navigate = useNavigate();
+    const user = JSON.parse(sessionStorage.getItem('user') || '{"first_name": "Anonymous"}');
 
     const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
@@ -28,21 +32,22 @@ const MenuUser = ({signIn}: IMenuUserProps) => {
                 navigate('/user/account');
                 break;
             case 'Orders':
-                navigate('/user/orders');
+                navigate('/user/order');
                 break;
             case 'Logout':
-                navigate('/');
+                sessionStorage.removeItem('token');
+                sessionStorage.removeItem('user');
+                setIsSignedIn(false)
                 break;
         }
     }
     return (
         <Box sx={{
-            flexGrow: 0,
-            display: signIn ? 'flex' : 'none',
+            flexGrow: 0
         }}>
             <Tooltip title="Open user menu">
                 <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
+                    <Avatar alt={user.first_name}/>
                 </IconButton>
             </Tooltip>
             <Menu

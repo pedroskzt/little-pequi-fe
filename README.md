@@ -10,7 +10,7 @@ A modern web application built with cutting-edge technologies
 [![Storybook](https://img.shields.io/badge/Storybook-8.6.12-FF4785?style=flat&logo=storybook)](https://storybook.js.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.3.1-646CFF?style=flat&logo=vite)](https://vitejs.dev/)
 
-[![Backend](https://img.shields.io/badge/Littl%20Pequi%20Backendend-v1-F9D259)](https://github.com/pedroskzt/LittlePequi-BE)
+[![Backend](https://img.shields.io/badge/Littl%20Pequi%20Backendend-v1-F9D259)](https://github.com/pedroskzt/little-pequi-be)
 
 </div>
 
@@ -109,7 +109,7 @@ npm run storybook
 
 ## Related Projects
 
-- Backend Repository: [Little Pequi Restaurant Backend](https://github.com/pedroskzt/LittlePequi-BE)
+- Backend Repository: [Little Pequi Restaurant Backend](https://github.com/pedroskzt/little-pequi-be)
 
 ## 🚧 Development Status and Contributions
 

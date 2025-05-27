@@ -1,10 +1,13 @@
-import {Container, Stack, Typography} from "@mui/material";
+import Container from "@mui/material/Container"
+import Stack from "@mui/material/Stack"
+import Typography from "@mui/material/Typography";
 import {css} from "@emotion/react";
 import {Link} from "react-router-dom";
+import restaurant from "../../assets/home/restaurant_inside.jpg";
 import './LpBanner.css'
 
 const banner = css({
-    backgroundImage: "linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url('/src/assets/home/restaurant_inside.jpg')"
+    backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url(${restaurant})`
 })
 
 
@@ -21,7 +24,7 @@ const LpBanner = () => {
                 <Typography>
                     30% Off This Weekend
                 </Typography>
-                <Link className={'banner-link'} to="#" color="#FFF"> Book now </Link>
+                <Link className={'banner-link'} to="/reservations" color="#FFF"> Book now </Link>
             </Stack>
         </Container>
     )

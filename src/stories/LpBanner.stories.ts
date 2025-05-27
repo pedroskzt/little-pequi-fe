@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { LpBanner } from '../components/LpBanner/LpBanner.tsx';
+import LpBanner from '../components/LpBanner/LpBanner.tsx';
 
 const meta: Meta<typeof LpBanner> = {
     title: "Components/LpBanner",
