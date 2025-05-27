@@ -1,18 +1,18 @@
 import {AppBar, Toolbar, Box} from "@mui/material";
-import MenuPages from "./Pages/MenuPages.tsx";
-import NavPages from "./Pages/NavPages.tsx";
+import NavPagesMenu from "./Pages/NavPagesMenu.tsx";
+import NavPagesDefault from "./Pages/NavPagesDefault.tsx";
 import MenuUser from "./MenuUser/MenuUser.tsx";
 import {useEffect, useState} from "react";
 import LpButton from "../LpButton/LpButton.tsx";
 import {Link} from "react-router-dom";
-
+import {useAuth} from "../../context/auth/AuthContext.tsx";
 
 
 const LpNavBar = () => {
 
     const [fixedNav, setFixedNav] = useState(0);
-    const [signedIn, setSignedIn] = useState(false);
 
+    const {isSignedIn} = useAuth();
 
     const handleScroll = () => {
         if (window !== undefined) {
@@ -45,6 +45,28 @@ const LpNavBar = () => {
         }
     });
 
+    const navLinks = [
+        {
+            name: "Home",
+            link: "/"
+        },
+        {
+            name: "About",
+            link: "/about"
+        },
+        {
+            name: "Menu",
+            link: "/menu"
+        },
+        {
+            name: "Reservations",
+            link: "/reservations"
+        },
+        {
+            name: "Make your order",
+            link: "/order"
+        }
+    ]
     return (
         <>
             <AppBar id={"navbar"} position="static" sx={{
@@ -57,14 +79,18 @@ const LpNavBar = () => {
             }}>
                 <Toolbar disableGutters>
                     {/*Small screen Menu*/}
-                    <MenuPages/>
+                    <NavPagesMenu navLinks={navLinks}/>
                     {/*Medium/Large screen Menu*/}
-                    <NavPages/>
+                    <NavPagesDefault navLinks={navLinks}/>
                     {/*User Menu*/}
-                    <MenuUser signIn={signedIn}/>
-                    <LpButton hidden={!signedIn} component={Link} onClick={() => setSignedIn(true)} variant="contained" to={'/auth/sign-in'}>
-                        Sign-in
-                    </LpButton>
+
+                    {isSignedIn && <MenuUser/>}
+                    {!isSignedIn &&
+                        <LpButton component={Link}
+                                  variant="contained"
+                                  to={'/auth/sign-in'}>
+                            Sign-in
+                        </LpButton>}
                 </Toolbar>
             </AppBar>
             <Box sx={{marginTop: `${fixedNav}px`}}/>
