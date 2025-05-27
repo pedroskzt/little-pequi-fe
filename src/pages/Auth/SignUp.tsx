@@ -15,7 +15,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import LpButton from "../../components/LpButton/LpButton.tsx";
 import {FormEvent, useState} from "react";
 import http from "../../http";
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router";
 
 
 const StyledTextField = styled(TextField)({

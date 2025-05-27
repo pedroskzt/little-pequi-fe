@@ -1,5 +1,5 @@
 import {MouseEvent, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router";
 import {Box, IconButton, Menu, MenuItem, Typography} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import INavLink from "../../../interfaces/INavLink.ts";

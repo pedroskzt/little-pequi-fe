@@ -4,7 +4,7 @@ import NavPagesDefault from "./Pages/NavPagesDefault.tsx";
 import MenuUser from "./MenuUser/MenuUser.tsx";
 import {useEffect, useState} from "react";
 import LpButton from "../LpButton/LpButton.tsx";
-import {Link} from "react-router-dom";
+import {Link} from "react-router";
 import {useAuth} from "../../context/auth/AuthContext.tsx";
 
 

@@ -1,5 +1,5 @@
 import LpRoutes from './routes/index.tsx';
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter} from 'react-router';
 import {ThemeProvider, CssBaseline, createTheme} from "@mui/material";
 
 const customTheme = createTheme({
