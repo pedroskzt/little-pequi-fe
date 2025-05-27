@@ -1,6 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react';
 
-import {LpNavBar} from '../components/LpNavBar/LpNavBar.tsx';
+import LpNavBar from '../components/LpNavBar/LpNavBar.tsx';
 
 const meta: Meta<typeof LpNavBar> = {
     title: "Components/LpNavBar",

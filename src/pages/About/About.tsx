@@ -1,12 +1,19 @@
-import {Container, Grid, Stack, Typography} from "@mui/material";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import pequiJPG from "../../assets/about/pequi.jpg";
+import muiTS from "../../assets/about/muiTS.png";
 
 const About = () => {
+    console.log(import.meta.env.BASE_URL)
     return (
         <Container sx={{my: 3}}>
             <Stack direction={"column"} spacing={2}>
                 <Grid container spacing={3}>
                     <Grid container direction={"column"} size={4} justifyContent={"center"}>
-                        <img src="/src/assets/about/pequi.jpg" alt="Real Pequi photo"/>
+
+                        <img src={pequiJPG} alt="Real Pequi photo"/>
                     </Grid>
                     <Grid size={8}>
                         <Typography variant="h3">About Us</Typography>
@@ -58,7 +65,7 @@ const About = () => {
                         </Typography>
                     </Grid>
                     <Grid container direction={"column"} size={4} justifyContent={"center"}>
-                        <img src="/src/assets/about/muiTS.png" alt="Real Pequi photo"/>
+                        <img src={muiTS} alt="Real Pequi photo"/>
                     </Grid>
                 </Grid>
             </Stack>

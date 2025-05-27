@@ -1,5 +1,5 @@
 import {Meta, StoryObj} from '@storybook/react';
-import {LpHeader} from '../components/LpHeader/LpHeader.tsx';
+import LpHeader from '../components/LpHeader/LpHeader.tsx';
 
 
 const meta: Meta<typeof LpHeader> = {
