@@ -47,8 +47,8 @@ administrators.
     <tr>
         <td>
             • React 19.0.0<br/>
-            • TypeScript 5.7.2
-• React Router 7.5.1
+            • TypeScript 5.7.2<br/>
+            • React Router 7.5.1
         </td>
         <td> 
             • Vite 6.3.1<br/>
