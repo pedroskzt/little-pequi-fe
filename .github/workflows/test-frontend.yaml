@@ -1,0 +1,31 @@
+name: Frontend CI
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    # Specifies the type of runner to use
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the repository code
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      # Set up a Node.js environment with a specific version
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.10.0
+
+      # Install dependencies using clean installation to ensure consistent builds
+      - name: Run Clean Install
+        run: npm ci
+
+      # Execute the test suite
+      - name: Run tests
+        run: npm run test
