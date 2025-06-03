@@ -15,7 +15,7 @@ import LpButton from "../../components/LpButton/LpButton.tsx";
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import ResetPassword from "./ResetPassword.tsx";
 import http from "../../http";
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router";
 import {useAuth} from "../../context/auth/AuthContext.tsx";
 import IUser from "../../interfaces/IUser.ts";
 

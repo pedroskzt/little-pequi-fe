@@ -1,6 +1,6 @@
 import LpButton from "../../LpButton/LpButton.tsx";
 import {Box} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Link} from "react-router";
 import INavLink from "../../../interfaces/INavLink.ts";
 
 interface INavProps {

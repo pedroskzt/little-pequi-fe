@@ -3,7 +3,7 @@ import {ReactElement} from "react";
 import Card from '@mui/material/Card'
 import {CardActions, CardContent, CardMedia, Typography} from "@mui/material";
 import LpButton from "../LpButton/LpButton.tsx";
-import {Link} from "react-router-dom";
+import {Link} from "react-router";
 
 
 interface ICardProps {
