@@ -1,5 +1,12 @@
+import {styled} from "@mui/material/styles";
 import logoFooter from "../../assets/home/logo_footer.png";
-import {Stack, Typography} from "@mui/material";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+
+const LogoIcon = styled('img')({
+    width: 'auto',
+    height: 'auto',
+})
 
 const LpFooter = () => {
     return (
@@ -10,7 +17,12 @@ const LpFooter = () => {
             justifyContent: "space-between",
             alignItems: "center",
         }}>
-            <img src={logoFooter} alt="Little Pequi Logo"/>
+            <LogoIcon sx={{
+                maxWidth: {
+                    xs: "12%",
+                    md: "2.5%"
+                }
+            }} src={logoFooter} alt="Little Pequi Logo"/>
             <Typography sx={{
                 borderTop: '#333333',
                 borderStyle: 'solid',
