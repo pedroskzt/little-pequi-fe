@@ -27,11 +27,10 @@ const ResetPassword = ({open, handleClose}: IResetPasswordProps) => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const payload = {
-            email: email
-        }
+        // const payload = {
+        //     email: email
+        // }
         setOpenTemp(true); // Temporarily shows an alert with a success message
-        console.log(payload);
         // http.post('/auth/users/reset_password/', payload)
 
         setTimeout(() => {
@@ -49,9 +48,7 @@ const ResetPassword = ({open, handleClose}: IResetPasswordProps) => {
                         component: 'form',
                         onSubmit: handleSubmit
                     }
-                }}
-
-            >
+                }}>
                 <DialogTitle>Reset Password</DialogTitle>
                 <Collapse in={openTemp}>
                     <Alert severity="warning">W.I.P.</Alert>
@@ -76,8 +73,7 @@ const ResetPassword = ({open, handleClose}: IResetPasswordProps) => {
                         onChange={(event) => {
                             setEmail(event.target.value);
                         }}
-                        fullWidth
-                    />
+                        fullWidth/>
                 </DialogContent>
                 <DialogActions sx={{pb: 3, px: 3}}>
                     <LpButton onClick={closeDialog}>Cancel</LpButton>

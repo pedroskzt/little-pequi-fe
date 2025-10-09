@@ -1,11 +1,11 @@
 import {AppBar, Toolbar, Box} from "@mui/material";
+import {useAuth} from "../../context/auth/AuthContext.ts";
 import NavPagesMenu from "./Pages/NavPagesMenu.tsx";
 import NavPagesDefault from "./Pages/NavPagesDefault.tsx";
 import MenuUser from "./MenuUser/MenuUser.tsx";
 import {useEffect, useState} from "react";
 import LpButton from "../LpButton/LpButton.tsx";
 import {Link} from "react-router";
-import {useAuth} from "../../context/auth/AuthContext.tsx";
 
 
 const LpNavBar = () => {
@@ -93,7 +93,7 @@ const LpNavBar = () => {
                         </LpButton>}
                 </Toolbar>
             </AppBar>
-            <Box sx={{marginTop: `${fixedNav}px`}}/>
+            <Box style={{marginTop: `${fixedNav}px`}}/>
         </>
 
     )

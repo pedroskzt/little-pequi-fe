@@ -1,7 +1,7 @@
 import {MouseEvent, useState} from "react";
 import {useNavigate} from "react-router";
 import {Box, IconButton, Menu, MenuItem, Typography} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import AppsIcon from '@mui/icons-material/Apps';
 import INavLink from "../../../interfaces/INavLink.ts";
 
 interface INavProps {
@@ -34,9 +34,8 @@ const NavPagesMenu = ({navLinks}: INavProps) => {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
-                color="inherit"
-            >
-                <MenuIcon/>
+                color="inherit">
+                <AppsIcon sx={{color: 'var(--tertiary-color)'}}/>
             </IconButton>
             <Menu
                 id="menu-appbar"
@@ -54,8 +53,7 @@ const NavPagesMenu = ({navLinks}: INavProps) => {
                 onClose={handleCloseNavMenu}
                 sx={{
                     display: {xs: 'block', md: 'none'}
-                }}
-            >
+                }}>
                 {navLinks.map(navLink => (
                     <MenuItem key={navLink.name} onClick={() => handleClick(navLink.link)}
                               sx={{":hover": {backgroundColor: "var(--secondary-color)"}}}>
