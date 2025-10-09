@@ -1,5 +1,6 @@
 import logoFooter from "../../assets/home/logo_footer.png";
 import {Stack, Typography} from "@mui/material";
+import LpImage from "../LpImage/LpImage.tsx";
 
 const LpFooter = () => {
     return (
@@ -10,7 +11,7 @@ const LpFooter = () => {
             justifyContent: "space-between",
             alignItems: "center",
         }}>
-            <img src={logoFooter} alt="Little Pequi Logo"/>
+            <LpImage src={logoFooter} alt="Little Pequi Logo"/>
             <Typography sx={{
                 borderTop: '#333333',
                 borderStyle: 'solid',
