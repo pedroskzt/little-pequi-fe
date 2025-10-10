@@ -1,3 +1,4 @@
+<!--suppress HtmlDeprecatedAttribute, HtmlDeprecatedAttribute -->mlDeprecatedAttribute -->mlDeprecatedAttribute -->mlDeprecatedAttribute -->
 <div align="center">
 
 # 🚀 React TypeScript Project
@@ -34,6 +35,9 @@ administrators.
 - ✅ Comprehensive testing suite
 - 🛣️ Client-side routing
 - 🎭 Theme customization
+- 🔐 JWT authentication with automatic token refresh
+- 👥 User session management and account pages
+- 🛡️ Admin panel with role-based access control
 
 ## 🛠️ Tech Stack
 
@@ -68,16 +72,29 @@ administrators.
 
 ```
 src/
-├── components/    # Reusable components
-├── pages/         # Application pages
-├── routes/        # Routing configuration
-├── assets/        # Static assets
-├── interfaces/    # TypeScript interfaces
-├── theme/         # MUI theme customization
-└── tests/         # Test files
+src/
+├── components/     # Reusable components
+├── pages/          # Application pages
+│ ├── admin/        # Admin panel pages
+│ ├── auth/         # Authentication pages
+│ ├── menu/         # Restaurant menu
+│ └── user/         # User account pages
+├── routes/         # Routing configuration
+├── assets/         # Static assets
+├── interfaces/     # TypeScript interfaces
+├── theme/          # MUI theme customization
+├── contexts/       # React contexts (Auth, etc.)
+├── services/       # API client and services
+├── validations/    # Zod validation schemas
+└── tests/          # Test files
 ```
 
 ## 🚀 Getting Start
+### Prerequisites
+
+- Node.js (v18 or higher recommended)
+- npm package manager
+- Access to the Little Pequi Backend API
 
 ### Installation
 
@@ -93,13 +110,20 @@ git clone <repository-url>
 npm install
 ```
 
-3. **Start development server**
+3. **Configure environment variables**
+
+Create a `.env` file in the root directory with:
+```
+VITE_API_URL=<your-backend-api-url>
+```
+
+4. **Start development server**
 
 ```bash
 npm run dev
 ```
 
-### Start Storybook
+### Start Storybook (Optional)
 
 1. **Start the storybook server**
 ```bash
