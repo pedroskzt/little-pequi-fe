@@ -107,7 +107,14 @@ const CategoryCrud = () => {
             }
             case 'DELETE': {
                 if (action.id) {
-                    const filteredCategories = categories.filter(category => category.id !== action.id);
+                    const display_order = categories.find(category => category.id === action.id)?.display_order || -1;
+                    const filteredCategories = categories.filter(category => category.id !== action.id)
+                    filteredCategories.forEach(category => {
+                            if (display_order === -1) return;
+                            if (category.display_order > display_order)
+                                category.display_order--;
+                        }
+                    );
                     setCategories(filteredCategories);
                 }
                 break;
