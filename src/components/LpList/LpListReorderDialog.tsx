@@ -238,7 +238,6 @@ const LpListReorderDialog = (props: ILpReorderFormProps) => {
             display_order: reorderedItems.findIndex((rItem) => rItem.id === item.id)
         }))
 
-        console.log(payload)
         // Send the updated display order to the backend
         apiClient.patch(`${apiUrl}`, payload)
             .then(response => {
@@ -261,7 +260,7 @@ const LpListReorderDialog = (props: ILpReorderFormProps) => {
                 });
             })
     };
-    console.log("test")
+
     return (
         <>
             <Dialog
