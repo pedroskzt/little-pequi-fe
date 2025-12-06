@@ -14,7 +14,7 @@ import {styled} from "@mui/material/styles";
 import CircularProgress from '@mui/material/CircularProgress';
 import LpButton from "../../components/LpButton/LpButton.tsx";
 import {FormEvent, useState} from "react";
-import http from "../../http";
+import apiClient from "../../http";
 import {useNavigate} from "react-router";
 
 
@@ -66,7 +66,7 @@ const SignUp = () => {
             email: email,
             password: password,
         }
-        http.post('/auth/users/', payload)
+        apiClient.post('/auth/users/', payload)
             .then(() => {
                 setOpenAlert(true);
                 setAlertMessage('Account created successfully!');
@@ -104,8 +104,7 @@ const SignUp = () => {
             <Typography
                 component="h1"
                 variant="h4"
-                sx={{width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)'}}
-            >
+                sx={{width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)'}}>
                 Sign up
             </Typography>
             <Collapse in={defaultError}>
@@ -118,8 +117,7 @@ const SignUp = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     gap: 2,
-                }}
-            >
+                }}>
                 <FormControl>
                     <FormLabel htmlFor="name">First Name</FormLabel>
                     <StyledTextField
@@ -134,8 +132,7 @@ const SignUp = () => {
                         value={firstName}
                         onChange={(event) => {
                             setFirstName(event.target.value);
-                        }}
-                    />
+                        }}/>
                 </FormControl>
                 <FormControl>
                     <FormLabel htmlFor="name">Last Name</FormLabel>
@@ -151,8 +148,7 @@ const SignUp = () => {
                         value={lastName}
                         onChange={(event) => {
                             setLastName(event.target.value);
-                        }}
-                    />
+                        }}/>
                 </FormControl>
                 <FormControl>
                     <FormLabel htmlFor="email">Email</FormLabel>
@@ -170,8 +166,7 @@ const SignUp = () => {
                         }}
                         error={emailError}
                         helperText={emailErrorMsg}
-                        color={emailError ? 'error' : 'primary'}
-                    />
+                        color={emailError ? 'error' : 'primary'}/>
                 </FormControl>
                 <FormControl>
                     <FormLabel htmlFor="password">Password</FormLabel>
@@ -188,8 +183,7 @@ const SignUp = () => {
                             setPassword(event.target.value);
                         }}
                         error={passwordError}
-                        color={passwordError ? 'error' : 'primary'}
-                    />
+                        color={passwordError ? 'error' : 'primary'}/>
                     <FormHelperText error={passwordError} component={"ul"}>
                         <ul>
                             {passwordErrorMsg.map((error, index) => (
@@ -201,9 +195,8 @@ const SignUp = () => {
                 <LpButton
                     type="submit"
                     fullWidth
-                    variant="contained"
                     // onClick={validateInputs}
-                >
+                    variant="contained">
                     Sign up
                 </LpButton>
             </Box>
@@ -218,8 +211,7 @@ const SignUp = () => {
                             alignSelf: 'center',
                             color: 'var(--tertiary-color)',
                             opacity: 0.65,
-                        }}
-                    >
+                        }}>
                         Sign in
                     </Link>
                 </Typography>
@@ -227,14 +219,12 @@ const SignUp = () => {
             <Backdrop
                 open={openAlert}
                 onClick={handleClose}
-                sx={(theme) => ({color: '#fff', zIndex: theme.zIndex.drawer + 1})}
-            >
+                sx={(theme) => ({color: '#fff', zIndex: theme.zIndex.drawer + 1})}>
                 <Snackbar
                     open={openAlert}
                     autoHideDuration={2000}
                     onClose={handleClose}
-                    anchorOrigin={{vertical: 'top', horizontal: 'center'}}
-                >
+                    anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
                     <Alert>
                         {alertMessage}
                     </Alert>

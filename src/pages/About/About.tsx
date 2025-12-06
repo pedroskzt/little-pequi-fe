@@ -2,70 +2,69 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import pequiJPG from "../../assets/about/pequi.jpg";
 import muiTS from "../../assets/about/muiTS.png";
+import pequiJPG from "../../assets/about/pequi.jpg";
+import LpImage from "../../components/LpImage/LpImage.tsx";
 
 const About = () => {
-    console.log(import.meta.env.BASE_URL)
     return (
         <Container sx={{my: 3}}>
             <Stack direction={"column"} spacing={2}>
                 <Grid container spacing={3}>
                     <Grid container direction={"column"} size={4} justifyContent={"center"}>
+                        <LpImage
+                            src={pequiJPG}
+                            alt="Real Pequi photo"
+                            sx={{
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "cover",
+                            }}/>
 
-                        <img src={pequiJPG} alt="Real Pequi photo"/>
                     </Grid>
                     <Grid size={8}>
                         <Typography variant="h3">About Us</Typography>
                         <Typography variant="body1" textAlign={"justify"} mb={1}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                            unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                            survived not only five centuries, but also the leap into electronic typesetting, remaining
-                            essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-                            containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                            Aldus PageMaker including versions of Lorem Ipsum.
-                        </Typography>
-                        <Typography textAlign={"justify"}>
-                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
-                            of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock,
-                            a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure
-                            Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the
-                            word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from
-                            sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and
-                            Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very
-                            popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
-                            amet..", comes from a line in section 1.10.32.
+                            Little Pequi is a fictional restaurant brought to life through this comprehensive restaurant
+                            website project. Although Little Pequi isn't an actual restaurant, this project
+                            serves as a showcase of my ability to design and implement a fully functioning restaurant
+                            management solution, providing an immersive and engaging experience for users and visitors
+                            alike. The purpose of creating the Little Pequi site is to demonstrate my
+                            technical skills in web development, user experience design, and application architecture
+                            within a real-world context.
                         </Typography>
                     </Grid>
 
                 </Grid>
                 <Grid container spacing={3}>
                     <Grid size={8}>
-                        <Typography variant="h3">Tech Stack</Typography>
+                        <Typography variant="h3">Behind The Scenes</Typography>
                         <Typography variant="body1" textAlign={"justify"} mb={1}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                            unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                            survived not only five centuries, but also the leap into electronic typesetting, remaining
-                            essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-                            containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                            Aldus PageMaker including versions of Lorem Ipsum.
+                            The platform is designed as a full-stack solution with a modern microservice architecture,
+                            seamlessly integrating a robust backend with a modern and interactive frontend.
+                        </Typography>
+                        <Typography textAlign={"justify"} mb={1}>
+                            The frontend is built using React with TypeScript and Material-UI, providing a fast,
+                            responsive, and user-friendly interface. Features include dynamic menu browsing, interactive
+                            reservation forms, and intuitive account management—all designed for both desktop and mobile
+                            users.
                         </Typography>
                         <Typography textAlign={"justify"}>
-                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
-                            of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock,
-                            a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure
-                            Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the
-                            word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from
-                            sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and
-                            Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very
-                            popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
-                            amet..", comes from a line in section 1.10.32.
+                            The backend is powered by Python and Django. It offers secure RESTful APIs for
+                            authentication, user profiles, reservations, menu management, and order processing. This
+                            architecture ensures reliable performance, security, and easy scalability for future
+                            enhancements.
                         </Typography>
                     </Grid>
                     <Grid container direction={"column"} size={4} justifyContent={"center"}>
-                        <img src={muiTS} alt="Real Pequi photo"/>
+                        <LpImage src={muiTS}
+                                 alt="MUI TypeScript"
+                                 sx={{
+                                     width: "100%",
+                                     height: "auto",
+                                     objectFit: "cover",
+                                 }}/>
+
                     </Grid>
                 </Grid>
             </Stack>

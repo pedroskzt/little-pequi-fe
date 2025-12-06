@@ -23,10 +23,19 @@ export default tseslint.config(
                 'warn',
                 {allowConstantExport: true},
             ],
-            "no-restricted-imports": [
+            "@typescript-eslint/no-unused-vars": [
                 "error",
                 {
-                    "patterns": [{"regex": "^@mui/[^/]+$"}]
+                    "argsIgnorePattern": "^_",
+                    "varsIgnorePattern": "^_",
+                    "caughtErrorsIgnorePattern": "^_",
+                    "destructuredArrayIgnorePattern": "^_"
+                }
+            ],
+            "@typescript-eslint/no-restricted-imports": [
+                "error",
+                {
+                    "patterns": [{"regex": "^@mui/?!(x-data-grid)[^/]+$"}],
                 }
             ]
         },

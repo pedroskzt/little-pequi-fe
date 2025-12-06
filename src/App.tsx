@@ -1,6 +1,9 @@
+import {responsiveFontSizes} from "@mui/material/styles";
 import LpRoutes from './routes/index.tsx';
 import {BrowserRouter} from 'react-router';
-import {ThemeProvider, CssBaseline, createTheme} from "@mui/material";
+import {ThemeProvider} from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import {createTheme} from "@mui/material/styles";
 
 const customTheme = createTheme({
     palette: {
@@ -18,14 +21,13 @@ const customTheme = createTheme({
     },
     typography: {
         fontFamily: 'Roboto',
-    }
+    },
 });
 
 function App() {
     return (
-
         <BrowserRouter>
-            <ThemeProvider theme={customTheme}>
+            <ThemeProvider theme={responsiveFontSizes(customTheme)}>
                 <CssBaseline>
                     <LpRoutes/>
                 </CssBaseline>

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
+    "host": "vite --port 80 --host 0.0.0.0",
     "build": "tsc -b && vite build -m prod",
     "test": "vitest run",
     "lint": "eslint .",
@@ -13,14 +14,22 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@atlaskit/pragmatic-drag-and-drop": "^1.7.4",
+    "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.1.0",
+    "@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^3.2.7",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@hookform/resolvers": "^5.1.1",
     "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
+    "@mui/x-charts": "^8.10.0",
+    "@mui/x-data-grid": "^8.7.0",
     "axios": "^1.9.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router": "^7.6.1"
+    "react-hook-form": "^7.60.0",
+    "react-router": "^7.6.1",
+    "zod": "^4.0.5"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.6",

@@ -14,15 +14,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
     args: {
-        cardProps: {
-            title: "Title",
-            image: example,
-            imageAlt: "Image Alt",
-            description: "Description",
-            link: "https://example.com",
-            linkText: "Link Text"
-        },
+        title: "Title",
+        image: example,
+        imageAlt: "Image Alt",
+        description: "Description",
+        mediaHeight: "2rem",
+        mediaWidth: "1rem",
+        link: "https://example.com",
+        linkText: "Link Text",
         children: createElement('h1', null, 'Children Element')
-
     }
 };
