@@ -1,4 +1,3 @@
-import ICard from "../../interfaces/ICard.ts";
 import {ReactElement} from "react";
 import Card from '@mui/material/Card'
 import {CardActions, CardContent, CardMedia, Typography} from "@mui/material";
@@ -7,14 +6,21 @@ import {Link} from "react-router";
 
 
 interface ICardProps {
-    cardProps: ICard;
+    title: string;
+    image: string;
+    imageAlt: string;
+    description: string;
+    mediaHeight?: string;
+    mediaWidth?: string;
+    link?: string;
+    linkText?: string;
     children?: ReactElement;
 }
 
 
-const LpCard = ({cardProps, children}: ICardProps) => {
+const LpCard = (props: ICardProps) => {
+    const {children, ...cardProps} = props;
     return (
-        <article>
             <Card variant="elevation" elevation={9} sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -26,7 +32,13 @@ const LpCard = ({cardProps, children}: ICardProps) => {
                     component="img"
                     image={cardProps.image}
                     alt={cardProps.imageAlt}
-                />
+                    sx={{marginTop: 2}}
+                    style={{
+                        height: cardProps.mediaHeight ? cardProps.mediaHeight : 'auto',
+                        width: cardProps.mediaWidth ? cardProps.mediaWidth : '100%',
+                        objectFit: 'cover',
+                    }}/>
+
                 <CardContent>
                     <Typography gutterBottom variant="h5">
                         {cardProps.title}
@@ -44,7 +56,6 @@ const LpCard = ({cardProps, children}: ICardProps) => {
                 </CardActions>}
 
             </Card>
-        </article>
     )
 }
 

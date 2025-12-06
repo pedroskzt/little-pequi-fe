@@ -14,13 +14,13 @@ jobs:
     steps:
       # Check out the repository code
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Set up a Node.js environment with a specific version
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20.10.0
+          node-version: 24
 
       # Install dependencies using clean installation to ensure consistent builds
       - name: Run Clean Install

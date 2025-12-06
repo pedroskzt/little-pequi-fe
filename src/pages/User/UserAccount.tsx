@@ -1,10 +1,29 @@
-import {Container, Typography} from "@mui/material";
+import Container from "@mui/material/Container"
+import Typography from "@mui/material/Typography";
+import {useEffect} from "react";
+import {useState} from "react";
+import {useNavigate} from "react-router";
+import IUser from "../../interfaces/IUser.ts";
 
 const UserAccount = () => {
+
+    const [userObj, setUserObj] = useState<null | IUser>(null)
+    const user = sessionStorage.getItem('user')
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user === null) {
+            navigate('/')
+        } else {
+            setUserObj(JSON.parse(user))
+        }
+    }, [user, navigate])
+
+
     return (
         <>
             <Container>
-                <Typography variant={"h1"}>John Doe</Typography>
+                <Typography variant={"h1"}>{`${userObj?.first_name} ${userObj?.last_name}`}</Typography>
             </Container>
         </>
     );

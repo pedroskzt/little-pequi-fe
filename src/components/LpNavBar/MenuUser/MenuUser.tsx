@@ -7,12 +7,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import {MouseEvent, useState} from "react";
 import {useNavigate} from "react-router";
-import {useAuth} from "../../../context/auth/AuthContext.tsx";
+import {useAuth} from "../../../context/auth/AuthContext.ts";
 
 
 const MenuUser = () => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-    const {setIsSignedIn} = useAuth();
+    const {isAdmin, setIsAdmin, setIsSignedIn} = useAuth();
     const navigate = useNavigate();
     const user = JSON.parse(sessionStorage.getItem('user') || '{"first_name": "Anonymous"}');
 
@@ -28,6 +28,9 @@ const MenuUser = () => {
         const selection = event.currentTarget.textContent;
         handleCloseUserMenu();
         switch (selection) {
+            case 'Admin':
+                navigate('/user/admin');
+                break;
             case 'Account':
                 navigate('/user/account');
                 break;
@@ -38,6 +41,7 @@ const MenuUser = () => {
                 sessionStorage.removeItem('token');
                 sessionStorage.removeItem('user');
                 setIsSignedIn(false)
+                setIsAdmin(false);
                 break;
         }
     }
@@ -67,8 +71,21 @@ const MenuUser = () => {
                     horizontal: 'right',
                 }}
                 open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-            >
+                onClose={handleCloseUserMenu}>
+                {isAdmin &&
+                    <MenuItem onClick={handleClick}
+                              sx={{
+                                  ":hover": {backgroundColor: "var(--secondary-color)"}
+                              }}>
+                        <Typography sx={{
+                            textAlign: 'center',
+                            color: 'var(--tertiary-color)',
+                            fontSize: '1rem',
+                            fontWeight: 'bolder'
+                        }}>
+                            Admin
+                        </Typography>
+                    </MenuItem>}
                 <MenuItem onClick={handleClick}
                           sx={{
                               ":hover": {backgroundColor: "var(--secondary-color)"}

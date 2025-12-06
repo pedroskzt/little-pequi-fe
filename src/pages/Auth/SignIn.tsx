@@ -13,10 +13,10 @@ import Collapse from "@mui/material/Collapse";
 
 import LpButton from "../../components/LpButton/LpButton.tsx";
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import {useAuth} from "../../context/auth/AuthContext.ts";
 import ResetPassword from "./ResetPassword.tsx";
-import http from "../../http";
+import apiClient from "../../http";
 import {useNavigate} from "react-router";
-import {useAuth} from "../../context/auth/AuthContext.tsx";
 import IUser from "../../interfaces/IUser.ts";
 
 
@@ -39,7 +39,7 @@ const SignIn = () => {
     const [passwordErrorMsg, setPasswordErrorMsg] = useState('');
 
 
-    const {isSignedIn, setIsSignedIn} = useAuth();
+    const {isSignedIn, setIsSignedIn, setIsAdmin} = useAuth();
     const navigate = useNavigate();
 
     const handleClickOpen = () => {
@@ -63,16 +63,27 @@ const SignIn = () => {
             password: password
         }
 
-        http.post('/auth/sign-in/', payload)
+        apiClient.post('/auth/sign-in/', payload)
             .then(res => {
                 sessionStorage.setItem('token', res.data.access);
                 sessionStorage.setItem('refresh', res.data.refresh);
                 setEmail('');
                 setPassword('');
                 setIsSignedIn(true);
+                const jwtPayload = JSON.parse(atob(res.data.access.split('.')[1]));
+                if (jwtPayload) {
+                    if ('admin' in jwtPayload) {
+                        setIsAdmin(jwtPayload.admin);
+                    } else {
+                        setIsAdmin(false);
+                    }
+
+                } else {
+                    setIsAdmin(false);
+                }
             })
             .then(() => {
-                http.get<IUser>('/auth/users/me/')
+                apiClient.get<IUser>('/auth/users/me/')
                     .then(res => {
                         sessionStorage.setItem('user', JSON.stringify(res.data));
                     })
@@ -84,7 +95,6 @@ const SignIn = () => {
             .catch(err => {
                 if (err.response) {
                     const data = err.response.data;
-                    console.log(data);
                     if (err.response.status === 400) {
                         if (data.email) {
                             setEmailError(true);
@@ -116,8 +126,7 @@ const SignIn = () => {
             <Typography
                 component="h1"
                 variant="h4"
-                sx={{width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)'}}
-            >
+                sx={{width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)'}}>
                 Sign in
             </Typography>
             <Collapse in={alertOpen}>
@@ -132,8 +141,7 @@ const SignIn = () => {
                     flexDirection: 'column',
                     width: '100%',
                     gap: 2,
-                }}
-            >
+                }}>
                 <FormControl>
                     <FormLabel htmlFor="email">Email</FormLabel>
                     <StyledTextField
@@ -151,8 +159,7 @@ const SignIn = () => {
                         }}
                         error={emailError}
                         helperText={emailErrorMsg}
-                        color={emailError ? 'error' : 'primary'}
-                    />
+                        color={emailError ? 'error' : 'primary'}/>
                 </FormControl>
                 <FormControl>
                     <FormLabel htmlFor="password">Password</FormLabel>
@@ -170,21 +177,18 @@ const SignIn = () => {
                         }}
                         error={passwordError}
                         helperText={passwordErrorMsg}
-                        color={passwordError ? 'error' : 'primary'}
-                    />
+                        color={passwordError ? 'error' : 'primary'}/>
                 </FormControl>
                 <FormControlLabel
                     control={<Checkbox value="remember" color="primary"/>}
-                    label="Remember me"
-                />
+                    label="Remember me"/>
 
                 <LpButton
                     type="submit"
                     fullWidth
-                    variant="contained"
                     // onClick={validateInputs}
-                >
-                    Sign in
+                    variant="contained">
+                Sign in
                 </LpButton>
 
                 <Link
@@ -196,8 +200,7 @@ const SignIn = () => {
                         alignSelf: 'center',
                         color: 'var(--tertiary-color)',
                         opacity: 0.65,
-                    }}
-                >
+                    }}>
                     Forgot your password?
                 </Link>
             </Box>
@@ -212,9 +215,7 @@ const SignIn = () => {
                             alignSelf: 'center',
                             color: 'var(--tertiary-color)',
                             opacity: 0.65,
-                        }}
-
-                    >
+                        }}>
                         Sign up
                     </Link>
                 </Typography>
