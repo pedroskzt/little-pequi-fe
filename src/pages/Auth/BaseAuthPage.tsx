@@ -33,7 +33,8 @@ const BaseAuthPage = () => {
                         flexDirection: 'row',
                     }}>
                         <LogoIcon sx={{
-                            mr: ".5rem"
+                            mr: ".5rem",
+                            maxWidth: '20%',
                         }} src={logoFooter} alt="Real Pequi photo"/>
                         <Typography variant="h4" sx={{alignSelf: 'center'}}>Little Pequi</Typography>
                     </Box>
