@@ -2,8 +2,6 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import muiTS from "../../assets/about/muiTS.png";
-import pequiJPG from "../../assets/about/pequi.jpg";
 import LpImage from "../../components/LpImage/LpImage.tsx";
 
 const About = () => {
@@ -13,7 +11,7 @@ const About = () => {
                 <Grid container spacing={3}>
                     <Grid container direction={"column"} size={4} justifyContent={"center"}>
                         <LpImage
-                            src={pequiJPG}
+                            src={"https://storage.googleapis.com/little-pequi/assets/pequi.jpg"}
                             alt="Real Pequi photo"
                             sx={{
                                 width: "100%",
@@ -57,7 +55,7 @@ const About = () => {
                         </Typography>
                     </Grid>
                     <Grid container direction={"column"} size={4} justifyContent={"center"}>
-                        <LpImage src={muiTS}
+                        <LpImage src={"https://storage.googleapis.com/little-pequi/assets/muiTS.png"}
                                  alt="MUI TypeScript"
                                  sx={{
                                      width: "100%",

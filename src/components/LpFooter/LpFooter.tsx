@@ -1,6 +1,5 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import logoFooter from "../../assets/home/logo_footer.png";
 import LpImage from "../LpImage/LpImage.tsx";
 
 
@@ -19,7 +18,7 @@ const LpFooter = () => {
                     xs: "12%",
                     md: "2.5%"
                 }
-            }} src={logoFooter} alt="Little Pequi Logo"/>
+            }} src={"https://storage.googleapis.com/little-pequi/assets/logo_footer.png"} alt="Little Pequi Logo"/>
 
             <Typography sx={{
                 borderTop: '#333333',

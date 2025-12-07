@@ -3,11 +3,10 @@ import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography";
 import {css} from "@emotion/react";
 import {Link} from "react-router";
-import restaurant from "../../assets/home/restaurant_inside.jpg";
 import './LpBanner.css'
 
 const banner = css({
-    backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url(${restaurant})`
+    backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url(https://storage.googleapis.com/little-pequi/assets/restaurant_inside.jpg)`
 })
 
 

@@ -4,7 +4,6 @@ import Container from "@mui/material/Container";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
-import logoFooter from "../../assets/home/logo_footer.png";
 
 const LogoIcon = styled('img')({
     width: 'auto',
@@ -35,7 +34,7 @@ const BaseAuthPage = () => {
                         <LogoIcon sx={{
                             mr: ".5rem",
                             maxWidth: '20%',
-                        }} src={logoFooter} alt="Real Pequi photo"/>
+                        }} src={"https://storage.googleapis.com/little-pequi/assets/logo_footer.png"} alt="Real Pequi photo"/>
                         <Typography variant="h4" sx={{alignSelf: 'center'}}>Little Pequi</Typography>
                     </Box>
                     <Outlet/>
