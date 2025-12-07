@@ -4,9 +4,6 @@ import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import ListItemText from "@mui/material/ListItemText"
 import Stack from "@mui/material/Stack";
-import headChef from "../../assets/home/head_chef.jpg";
-import salad from "../../assets/home/salad.jpg";
-import grill from "../../assets/home/grill.jpg";
 import LpBanner from "../../components/LpBanner/LpBanner.tsx";
 import LpCard from "../../components/LpCard/LpCard.tsx";
 
@@ -22,7 +19,7 @@ const App = () => {
                     sx={{marginTop: '1rem', marginBottom: '1rem'}}>
                     <LpCard
                         title={"Grilled mediterranean dishes"}
-                        image={grill}
+                        image={"https://storage.googleapis.com/little-pequi/assets/Grill.jpg"}
                         imageAlt={"Grilled Mediterranean dishes"}
                         description={"The best dishes in town!"}
                         link={"/menu"}
@@ -30,7 +27,7 @@ const App = () => {
                         mediaHeight={"15rem"}/>
                     <LpCard
                         title={"Book a table"}
-                        image={salad}
+                        image={"https://storage.googleapis.com/little-pequi/assets/salad.jpg"}
                         imageAlt={"Fresh Mediterranean salad"}
                         description={"Reserve your table for an Italian, Greek, and Turkish dining experience."}
                         link={"/reservations"}
@@ -38,7 +35,7 @@ const App = () => {
                         mediaHeight={"15rem"}/>
                     <LpCard
                         title={"Opening Hours"}
-                        image={headChef}
+                        image={"https://storage.googleapis.com/little-pequi/assets/head_chef.jpg"}
                         imageAlt={"Little Pequi restaurant head chef"}
                         description={"The Little Pequi Restaurant is open 7 days a week, except for public holidays."}
                         mediaHeight={"15rem"}>

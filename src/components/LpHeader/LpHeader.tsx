@@ -1,5 +1,4 @@
 import Container from "@mui/material/Container";
-import logo from "../../assets/logo.png";
 import LpImage from "../LpImage/LpImage.tsx";
 
 
@@ -12,7 +11,7 @@ const LpHeader = () => {
                     xs: "50%",
                     md: "20%",
                 }
-            }} src={logo} alt="Little Pequi Logo"/>
+            }} src={"https://storage.googleapis.com/little-pequi/assets/logo.png"} alt="Little Pequi Logo"/>
         </Container>
     )
 }

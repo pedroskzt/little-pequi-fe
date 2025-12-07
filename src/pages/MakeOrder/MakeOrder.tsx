@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import underConstruction from "../../assets/under_construction.jpg";
 import LpImage from "../../components/LpImage/LpImage.tsx";
 
 const MakeOrder = () => {
@@ -12,7 +11,7 @@ const MakeOrder = () => {
                 <Box sx={{
                     textAlign: "center",
                 }}>
-                    <LpImage src={underConstruction} alt="Page Under Construction"/>
+                    <LpImage src={"https://storage.googleapis.com/little-pequi/assets/under_construction.jpg"} alt="Page Under Construction"/>
                 </Box>
             </Container>
         </>

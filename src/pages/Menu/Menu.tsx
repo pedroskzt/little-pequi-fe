@@ -4,7 +4,6 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import {useEffect, useState} from "react";
-import underConstruction from "../../assets/under_construction.jpg";
 import LpCard from "../../components/LpCard/LpCard.tsx";
 import LpImage from "../../components/LpImage/LpImage.tsx";
 import apiClient from "../../http";
@@ -48,7 +47,7 @@ const RestaurantMenu = () => {
                 {!categories.length && <Box sx={{
                     textAlign: "center",
                 }}>
-                    <LpImage src={underConstruction} alt="Page Under Construction"/>
+                    <LpImage src={"https://storage.googleapis.com/little-pequi/assets/under_construction.jpg"} alt="Page Under Construction"/>
                 </Box>}
             </Container>
 
