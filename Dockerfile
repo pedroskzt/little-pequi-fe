@@ -1,11 +1,15 @@
 # Use Node.js slim image as the base for the build stage
-FROM node:20.10.0-slim AS build-stage
+FROM node:24.11.1-slim AS build-stage
 
 # Set the working directory in the container
 WORKDIR /app
 
+# Update npm version
+RUN npm install -g npm@11.6.4
+
 # Copy package.json and package-lock.json to install dependencies
 COPY package*.json ./
+
 # Install all dependencies
 RUN npm ci
 
