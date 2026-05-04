@@ -4,11 +4,12 @@ import {useEffect} from "react";
 import {useState} from "react";
 import {useNavigate} from "react-router";
 import IUser from "../../interfaces/IUser.ts";
+import {tokenStore} from "../../http/auth.ts";
 
 const UserAccount = () => {
 
     const [userObj, setUserObj] = useState<null | IUser>(null)
-    const user = sessionStorage.getItem('user')
+    const user = tokenStore.getUser()
     const navigate = useNavigate();
 
     useEffect(() => {

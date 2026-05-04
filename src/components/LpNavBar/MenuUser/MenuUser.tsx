@@ -8,13 +8,14 @@ import Typography from "@mui/material/Typography";
 import {MouseEvent, useState} from "react";
 import {useNavigate} from "react-router";
 import {useAuth} from "../../../context/auth/AuthContext.ts";
+import {tokenStore} from "../../../http/auth.ts";
 
 
 const MenuUser = () => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const {isAdmin, setIsAdmin, setIsSignedIn} = useAuth();
     const navigate = useNavigate();
-    const user = JSON.parse(sessionStorage.getItem('user') || '{"first_name": "Anonymous"}');
+    const user = JSON.parse(tokenStore.getUser() || '{"first_name": "Anonymous"}');
 
     const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
@@ -38,8 +39,7 @@ const MenuUser = () => {
                 navigate('/user/order');
                 break;
             case 'Logout':
-                sessionStorage.removeItem('token');
-                sessionStorage.removeItem('user');
+                tokenStore.clear();
                 setIsSignedIn(false)
                 setIsAdmin(false);
                 break;

@@ -1,5 +1,7 @@
 import {AxiosError} from "axios";
 import axios from "axios";
+import {decodeJwt, tokenStore} from "./auth.ts";
+import {JwtPayload} from "jwt-decode";
 
 
 const apiClient = axios.create({
@@ -30,7 +32,7 @@ const processQueue = (error: AxiosError | null, token: string | null = null) => 
 
 const refreshToken = async (): Promise<string> => {
     const payload = {
-        refresh: sessionStorage.getItem('refresh'),
+        refresh: tokenStore.getRefresh(),
     }
     if (!payload.refresh) {
         throw new Error('No refresh token available');
@@ -42,13 +44,12 @@ const refreshToken = async (): Promise<string> => {
 
         // Update token in session storage
         const newToken = response.data.access;
-        sessionStorage.setItem('token', newToken);
+        tokenStore.setAccess(newToken);
 
         return newToken;
     } catch (error) {
         // Clear tokens on refresh failure
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('refresh');
+        tokenStore.clear();
 
         // Redirect to sign-in or dispatch logout action
         window.location.href = '/login';
@@ -107,7 +108,10 @@ apiClient.interceptors.response.use(response => response,
 // Check if the token is expired
 const isTokenExpired = (token: string): boolean => {
     try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
+        const payload = decodeJwt(token) as JwtPayload;
+        if (!payload.exp) {
+            return true;
+        }
         return payload.exp * 1000 < Date.now();
     } catch {
         return true;
@@ -117,12 +121,12 @@ const isTokenExpired = (token: string): boolean => {
 // Request interceptor to add token to headers
 apiClient.interceptors.request.use(
     async (config) => {
-        let token = sessionStorage.getItem('token');
+        let token = tokenStore.getAccess();
 
         if (token && config.headers) {
             if (isTokenExpired(token)) {
                 await refreshToken();
-                token = sessionStorage.getItem('token');
+                token = tokenStore.getAccess();
             }
             config.headers.Authorization = `JWT ${token}`;
         }
