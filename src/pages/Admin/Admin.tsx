@@ -63,10 +63,12 @@ const Admin = () => {
         </Box>
     );
     useEffect(() => {
+        if (auth.isAuthLoading) return;
         if (!auth.isAdmin || !auth.isSignedIn) {
             navigate('/auth/sign-in');
         }
-    })
+    }, [auth.isAuthLoading, auth.isAdmin, auth.isSignedIn, navigate])
+
     return (
         <>
             <Stack direction={"row"} flexDirection={"column"} sx={{my: 2, position: 'relative'}}
