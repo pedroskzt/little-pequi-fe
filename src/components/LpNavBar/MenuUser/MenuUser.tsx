@@ -8,14 +8,12 @@ import Typography from "@mui/material/Typography";
 import {MouseEvent, useState} from "react";
 import {useNavigate} from "react-router";
 import {useAuth} from "../../../context/auth/AuthContext.ts";
-import {tokenStore} from "../../../http/auth.ts";
 
 
 const MenuUser = () => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-    const {isAdmin, setIsAdmin, setIsSignedIn} = useAuth();
+    const {isAdmin, user, logout} = useAuth();
     const navigate = useNavigate();
-    const user = JSON.parse(tokenStore.getUser() || '{"first_name": "Anonymous"}');
 
     const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
@@ -25,7 +23,7 @@ const MenuUser = () => {
         setAnchorElUser(null);
     };
 
-    const handleClick = (event: MouseEvent<HTMLElement>) => {
+    const handleClick = async (event: MouseEvent<HTMLElement>) => {
         const selection = event.currentTarget.textContent;
         handleCloseUserMenu();
         switch (selection) {
@@ -39,9 +37,8 @@ const MenuUser = () => {
                 navigate('/user/order');
                 break;
             case 'Logout':
-                tokenStore.clear();
-                setIsSignedIn(false)
-                setIsAdmin(false);
+                await logout();
+                navigate('/');
                 break;
         }
     }
@@ -51,7 +48,7 @@ const MenuUser = () => {
         }}>
             <Tooltip title="Open user menu">
                 <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                    <Avatar alt={user.first_name}/>
+                    <Avatar alt={user?.first_name ?? 'Anonymous'}/>
                 </IconButton>
             </Tooltip>
             <Menu
