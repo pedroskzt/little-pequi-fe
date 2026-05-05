@@ -15,9 +15,8 @@ import LpButton from "../../components/LpButton/LpButton.tsx";
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {useAuth} from "../../context/auth/AuthContext.ts";
 import ResetPassword from "./ResetPassword.tsx";
-import apiClient from "../../http";
 import {useNavigate} from "react-router";
-import IUser from "../../interfaces/IUser.ts";
+import {AxiosError} from "axios";
 
 
 const StyledTextField = styled(TextField)({
@@ -39,7 +38,7 @@ const SignIn = () => {
     const [passwordErrorMsg, setPasswordErrorMsg] = useState('');
 
 
-    const {isSignedIn, setIsSignedIn, setIsAdmin} = useAuth();
+    const {isSignedIn, isAuthLoading, login} = useAuth();
     const navigate = useNavigate();
 
     const handleClickOpen = () => {
@@ -56,71 +55,107 @@ const SignIn = () => {
         setPasswordError(false);
         setPasswordErrorMsg('')
     }
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        clearErrors();
-        const payload = {
-            email: email,
-            password: password
-        }
-
-        apiClient.post('/auth/sign-in/', payload)
-            .then(res => {
-                sessionStorage.setItem('token', res.data.access);
-                sessionStorage.setItem('refresh', res.data.refresh);
-                setEmail('');
-                setPassword('');
-                setIsSignedIn(true);
-                const jwtPayload = JSON.parse(atob(res.data.access.split('.')[1]));
-                if (jwtPayload) {
-                    if ('admin' in jwtPayload) {
-                        setIsAdmin(jwtPayload.admin);
-                    } else {
-                        setIsAdmin(false);
-                    }
-
-                } else {
-                    setIsAdmin(false);
-                }
-            })
-            .then(() => {
-                apiClient.get<IUser>('/auth/users/me/')
-                    .then(res => {
-                        sessionStorage.setItem('user', JSON.stringify(res.data));
-                    })
-                    .catch(err => {
-                            console.log(err);
-                        }
-                    )
-            })
-            .catch(err => {
-                if (err.response) {
-                    const data = err.response.data;
-                    if (err.response.status === 400) {
-                        if (data.email) {
-                            setEmailError(true);
-                            setEmailErrorMsg(() => (data.email));
-                        }
-                        if (data.password) {
-                            setPasswordError(true);
-                            setPasswordErrorMsg(() => (data.password));
-                        }
-                    } else {
-                        setAlertMessage(() => (data.detail));
-                        setAlertOpen(true);
-                    }
-                } else {
-                    setAlertOpen(true);
-                    setAlertMessage('Something went wrong. Please try again later or contact support.')
-                }
-
-            })
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        clearErrors();
+        try {
+            await login(email, password);
+            // navigation handled by the existing useEffect on isSignedIn,
+            // OR navigate explicitly here — your choice.
+        } catch (error) {
+            // keep the existing error-mapping block, but read from `err`
+            if (error instanceof AxiosError && error.response) {
+                const data = error.response.data;
+                if (error.response.status === 400) {
+                    if (data.email) {
+                        setEmailError(true);
+                        setEmailErrorMsg(data.email);
+                    }
+                    if (data.password) {
+                        setPasswordError(true);
+                        setPasswordErrorMsg(data.password);
+                    }
+                } else {
+                    setAlertMessage(data.detail);
+                    setAlertOpen(true);
+                }
+            } else {
+                setAlertOpen(true);
+                setAlertMessage('Something went wrong. Please try again later or contact support.');
+            }
+        }
+        // try {
+        //     await login(email, password);
+        //     navigate('/');
+        // } catch (error) {
+        //     console.log(error)
+        // }
+        // const payload = {
+        //     email: email,
+        //     password: password
+        // }
+        //
+        // apiClient.post('/auth/sign-in/', payload)
+        //     .then(res => {
+        //         tokenStore.setAccess(res.data.access)
+        //         tokenStore.setRefresh(res.data.refresh)
+        //         setEmail('');
+        //         setPassword('');
+        //         // setIsSignedIn(true);
+        //         const jwtPayload = JSON.parse(atob(res.data.access.split('.')[1]));
+        //         if (jwtPayload) {
+        //             if ('admin' in jwtPayload) {
+        //                 // setIsAdmin(jwtPayload.admin);
+        //                 console.log("is admin")
+        //             } else {
+        //                 // setIsAdmin(false);
+        //                 console.log("is not admin")
+        //             }
+        //
+        //         } else {
+        //             // setIsAdmin(false);
+        //             console.log("jwt payload is null")
+        //         }
+        //     })
+        //     .then(() => {
+        //         apiClient.get<IUser>('/auth/users/me/')
+        //             .then(res => {
+        //                 sessionStorage.setItem('user', JSON.stringify(res.data));
+        //             })
+        //             .catch(err => {
+        //                     console.log(err);
+        //                 }
+        //             )
+        //     })
+        //     .catch(err => {
+        //         if (err.response) {
+        //             const data = err.response.data;
+        //             if (err.response.status === 400) {
+        //                 if (data.email) {
+        //                     setEmailError(true);
+        //                     setEmailErrorMsg(() => (data.email));
+        //                 }
+        //                 if (data.password) {
+        //                     setPasswordError(true);
+        //                     setPasswordErrorMsg(() => (data.password));
+        //                 }
+        //             } else {
+        //                 setAlertMessage(() => (data.detail));
+        //                 setAlertOpen(true);
+        //             }
+        //         } else {
+        //             setAlertOpen(true);
+        //             setAlertMessage('Something went wrong. Please try again later or contact support.')
+        //         }
+        //
+        //     })
+
     }
     useEffect(() => {
         if (isSignedIn) {
             navigate('/');
         }
-    })
+    }, [isSignedIn, navigate])
     return (
         <>
             <Typography
@@ -184,11 +219,12 @@ const SignIn = () => {
                     label="Remember me"/>
 
                 <LpButton
+                    disabled={isAuthLoading}
                     type="submit"
                     fullWidth
                     // onClick={validateInputs}
                     variant="contained">
-                Sign in
+                    Sign in
                 </LpButton>
 
                 <Link
