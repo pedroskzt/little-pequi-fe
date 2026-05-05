@@ -1,10 +1,10 @@
-import {AxiosError} from "axios";
+import {AxiosError, AxiosInstance} from "axios";
 import axios from "axios";
 import {decodeJwt, tokenStore} from "./auth.ts";
 import {JwtPayload} from "jwt-decode";
 
 
-const apiClient = axios.create({
+const apiClient: AxiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
 
 })
