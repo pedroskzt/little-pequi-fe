@@ -1,10 +1,13 @@
 import {createContext, useContext} from "react";
+import IUser from "../../interfaces/IUser.ts";
 
 export interface IAuthContextProps {
+    user: IUser | null;
     isSignedIn: boolean;
-    setIsSignedIn: (value: boolean) => void;
     isAdmin: boolean;
-    setIsAdmin: (value: boolean) => void;
+    isAuthLoading: boolean;
+    login: (email: string, password: string) => Promise<void>;
+    logout: () => Promise<void>;
 }
 
 export const AuthContext = createContext<IAuthContextProps | undefined>(undefined);
