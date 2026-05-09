@@ -12,10 +12,9 @@ import Alert from "@mui/material/Alert";
 import Collapse from "@mui/material/Collapse";
 
 import LpButton from "../../components/LpButton/LpButton.tsx";
-import {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import {useAuth} from "../../context/auth/AuthContext.ts";
 import ResetPassword from "./ResetPassword.tsx";
-import {useNavigate} from "react-router";
 import {AxiosError} from "axios";
 
 
@@ -38,8 +37,7 @@ const SignIn = () => {
     const [passwordErrorMsg, setPasswordErrorMsg] = useState('');
 
 
-    const {isSignedIn, isAuthLoading, login} = useAuth();
-    const navigate = useNavigate();
+    const {isAuthLoading, login} = useAuth();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -55,15 +53,13 @@ const SignIn = () => {
         setPasswordError(false);
         setPasswordErrorMsg('')
     }
+
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         clearErrors();
         try {
             await login(email, password);
-            // navigation handled by the existing useEffect on isSignedIn,
-            // OR navigate explicitly here — your choice.
         } catch (error) {
-            // keep the existing error-mapping block, but read from `err`
             if (error instanceof AxiosError && error.response) {
                 const data = error.response.data;
                 if (error.response.status === 400) {
@@ -151,11 +147,7 @@ const SignIn = () => {
         //     })
 
     }
-    useEffect(() => {
-        if (isSignedIn) {
-            navigate('/');
-        }
-    }, [isSignedIn, navigate])
+
     return (
         <>
             <Typography
