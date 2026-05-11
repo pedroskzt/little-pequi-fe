@@ -10,7 +10,6 @@ export const tokenStore = {
     clear: () => {
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("refresh");
-        sessionStorage.removeItem("user");
     },
 };
 
@@ -23,3 +22,9 @@ export const decodeJwt = <JwtPayload>(token: string): JwtPayload | null => {
         return null;
     }
 }
+
+type LogoutCallback = () => void;
+let logoutCallback: LogoutCallback | null = null;
+
+export const setLogoutCallback = (callback: LogoutCallback) => logoutCallback = callback;
+export const fireLogoutCallback = () => logoutCallback?.();
