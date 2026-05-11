@@ -2,7 +2,7 @@ import {useCallback, useEffect, useMemo} from "react";
 import {ReactNode, useState} from "react";
 import {IAuthContextProps} from "./AuthContext";
 import {AuthContext} from "./AuthContext";
-import {decodeJwt, tokenStore} from "../../http/auth.ts";
+import {decodeJwt, setLogoutCallback, tokenStore} from "../../http/auth.ts";
 import {JwtPayload} from "jwt-decode";
 import apiClient from "../../http";
 import IUser from "../../interfaces/IUser.ts";
@@ -18,20 +18,27 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
     const [user, setUser] = useState<IUser | null>(null);
 
     useEffect(() => {
+        setLogoutCallback(() => {
+            tokenStore.clear();
+            setUser(null);
+        });
+
         const token = tokenStore.getAccess();
-        if (token) {
-            apiClient.get<IUser>('/auth/users/me/')
-                .then(res => {
-                    setUser(res.data);
-                })
-                .catch(err => {
-                        console.log(err);
-                        tokenStore.clear();
-                    }
-                )
+        if (!token) {
+            setIsAuthLoading(false);
+            return;
         }
-        setIsAuthLoading(false);
-    }, [])
+        apiClient.get<IUser>('/auth/users/me/')
+            .then(res => {
+                setUser(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+                tokenStore.clear();
+            })
+            .finally(() => setIsAuthLoading(false))
+    }, []);
+
     const isSignedIn = user !== null;
     const isAdmin = useMemo((): boolean => {
         const token = tokenStore.getAccess();
@@ -53,7 +60,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
             const me = await apiClient.get<IUser>("/auth/users/me/");
             setUser(me.data);
         } catch (error) {
-            if (isAxiosError<ApiError>(error)){
+            if (isAxiosError<ApiError>(error)) {
                 console.log(error.response?.data);
                 console.log(error.response);
                 console.error("Error during login:", error);
