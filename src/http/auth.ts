@@ -1,5 +1,3 @@
-import {jwtDecode} from "jwt-decode";
-
 export const tokenStore = {
     ACCESS_KEY: "token", //Necessary?
     REFRESH_KEY: "refresh", //Necessary?
@@ -13,18 +11,12 @@ export const tokenStore = {
     },
 };
 
-export const decodeJwt = <JwtPayload>(token: string): JwtPayload | null => {
-    try {
-        return jwtDecode<JwtPayload>(token);
+// May be temporary, double check after moving backend to and frontend to HTTPCookie_only
+export const authChannel = new BroadcastChannel('auth');
+export type AuthMessage = { type: 'signOut' } | { type: 'signIn' };
 
-    } catch (err) {
-        console.log(err)
-        return null;
-    }
-}
+type SignOutCallback = () => void;
+let signOutCallback: SignOutCallback | null = null;
 
-type LogoutCallback = () => void;
-let logoutCallback: LogoutCallback | null = null;
-
-export const setLogoutCallback = (callback: LogoutCallback) => logoutCallback = callback;
-export const fireLogoutCallback = () => logoutCallback?.();
+export const setSignOutCallback = (callback: SignOutCallback) => signOutCallback = callback;
+export const fireSignOutCallback = () => signOutCallback?.();
