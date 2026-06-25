@@ -2,8 +2,7 @@ import {useCallback, useEffect, useMemo} from "react";
 import {ReactNode, useState} from "react";
 import {IAuthContextProps} from "./AuthContext";
 import {AuthContext} from "./AuthContext";
-import {decodeJwt, setLogoutCallback, tokenStore} from "../../http/auth.ts";
-import {JwtPayload} from "jwt-decode";
+import {authChannel, AuthMessage, setSignOutCallback, tokenStore} from "../../http/auth.ts";
 import apiClient from "../../http";
 import IUser from "../../interfaces/IUser.ts";
 import {AxiosError, isAxiosError} from "axios";
@@ -15,16 +14,30 @@ type ApiError = {
 
 export const AuthProvider = ({children}: { children: ReactNode }) => {
     const [isAuthLoading, setIsAuthLoading] = useState(true);
+    const [isBootstrapping, setIsBootstrapping] = useState(true);
     const [user, setUser] = useState<IUser | null>(null);
 
     useEffect(() => {
-        setLogoutCallback(() => {
+        const onMessage = (event: MessageEvent<AuthMessage>) => {
+            if (event.data?.type === 'signOut') {
+                tokenStore.clear();
+                setUser(null);
+            }
+        };
+        authChannel.addEventListener('message', onMessage);
+        return () => authChannel.removeEventListener('message', onMessage);
+    }, []);
+
+    // Bootstrap user data
+    useEffect(() => {
+        setSignOutCallback(() => {
             tokenStore.clear();
             setUser(null);
         });
 
         const token = tokenStore.getAccess();
         if (!token) {
+            setIsBootstrapping(false);
             setIsAuthLoading(false);
             return;
         }
@@ -36,22 +49,16 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
                 console.log(err);
                 tokenStore.clear();
             })
-            .finally(() => setIsAuthLoading(false))
+            .finally(() => {
+                setIsAuthLoading(false);
+                setIsBootstrapping(false);
+            })
     }, []);
 
     const isSignedIn = user !== null;
-    const isAdmin = useMemo((): boolean => {
-        const token = tokenStore.getAccess();
-        if (!token) return false;
+    const isAdmin = user?.is_staff ?? false;
 
-        const jwtPayload: JwtPayload | null = decodeJwt(token);
-        if (jwtPayload && 'admin' in jwtPayload) {
-            return jwtPayload['admin'] as boolean;
-        }
-        return false;
-    }, [user]);
-
-    const login = async (email: string, password: string) => {
+    const signIn = async (email: string, password: string) => {
         setIsAuthLoading(true);
         try {
             const {data} = await apiClient.post("/auth/sign-in/", {email, password});
@@ -61,9 +68,6 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
             setUser(me.data);
         } catch (error) {
             if (isAxiosError<ApiError>(error)) {
-                console.log(error.response?.data);
-                console.log(error.response);
-                console.error("Error during login:", error);
                 tokenStore.clear();
                 setUser(null);
                 throw error as AxiosError;
@@ -73,11 +77,12 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
 
         } finally {
             setIsAuthLoading(false);
+            setIsBootstrapping(false);
         }
 
     };
 
-    const logout = useCallback(async () => {
+    const signOut = useCallback(async () => {
         try {
             // const refreshToken = tokenStore.getRefresh();
             const response = await apiClient.post('/auth/sign-out/');
@@ -87,6 +92,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
         } finally {
             tokenStore.clear();
             setUser(null);
+            authChannel.postMessage({type: 'signOut'} satisfies AuthMessage);
         }
     }, []);
 
@@ -96,9 +102,10 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
         isSignedIn,
         isAdmin,
         isAuthLoading,
-        login,
-        logout
-    }), [user, isAdmin, isAuthLoading, login, logout])
+        isBootstrapping,
+        signIn: signIn,
+        signOut
+    }), [user, isAdmin, isAuthLoading, isBootstrapping, signIn, signOut])
 
     return (
         <AuthContext.Provider value={authContext}>
