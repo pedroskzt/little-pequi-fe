@@ -6,8 +6,9 @@ export interface IAuthContextProps {
     isSignedIn: boolean;
     isAdmin: boolean;
     isAuthLoading: boolean;
-    login: (email: string, password: string) => Promise<void>;
-    logout: () => Promise<void>;
+    isBootstrapping: boolean;
+    signIn: (email: string, password: string) => Promise<void>;
+    signOut: () => Promise<void>;
 }
 
 export const AuthContext = createContext<IAuthContextProps | undefined>(undefined);

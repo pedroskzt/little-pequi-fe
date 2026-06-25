@@ -13,10 +13,10 @@ export const RequireAuth = ({
                                 adminOnly = false,
                                 redirectTo = "/auth/sign-in"
                             }: IRequireAuthProps) => {
-    const {isAuthLoading, isSignedIn, isAdmin} = useAuth();
+    const {isBootstrapping, isSignedIn, isAdmin} = useAuth();
     const location = useLocation();
 
-    if (isAuthLoading) {
+    if (isBootstrapping) {
         return (
             <>
                 <Backdrop open={true} sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}>
@@ -26,6 +26,7 @@ export const RequireAuth = ({
         );
     }
     if (!isSignedIn) return <Navigate to={redirectTo} replace state={{from: location}}/>;
+    {/*This is a UI hint! Backend enforces admin endpoints.*/}
     if (adminOnly && !isAdmin) return <Navigate to={"/"} replace/>;
 
 

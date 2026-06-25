@@ -4,9 +4,9 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
 
 export const RedirectIfSignedIn = ({to = "/"}: { to?: string }) => {
-    const {isSignedIn, isAuthLoading} = useAuth();
+    const {isSignedIn, isBootstrapping} = useAuth();
     const location = useLocation();
-    if (isAuthLoading) {
+    if (isBootstrapping) {
         return (
             <>
                 <Backdrop open={true} sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}>
