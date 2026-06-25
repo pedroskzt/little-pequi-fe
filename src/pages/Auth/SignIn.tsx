@@ -1,44 +1,27 @@
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import Divider from "@mui/material/Divider"
-import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormLabel from "@mui/material/FormLabel";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import {styled} from "@mui/material/styles";
-import Alert from "@mui/material/Alert";
-import Collapse from "@mui/material/Collapse";
-
 import LpButton from "../../components/LpButton/LpButton.tsx";
-import {ChangeEvent, FormEvent, useState} from "react";
+import {useState} from "react";
 import {useAuth} from "../../context/auth/AuthContext.ts";
 import ResetPassword from "./ResetPassword.tsx";
-import {AxiosError} from "axios";
+import {SignInSchema} from "./types/AuthSchema.ts";
+import useSignInForm from "./hooks/useSignInForm.ts";
+import LpTextField from "../../components/LpTextField/LpTextField.tsx";
+import LpBackdrop from "../../components/LpBackdrop/LpBackdrop.tsx";
 
-
-const StyledTextField = styled(TextField)({
-    '& .MuiInputBase-input': {
-        boxSizing: 'border-box',
-    }
-})
 
 const SignIn = () => {
+
+    const {control, alertState, handleSubmit, onSubmit, hideAlert} = useSignInForm();
+    const {isAuthLoading} = useAuth();
+
+    //===============================================================
+    // Temporary state and handlers for reset password modal
     const [open, setOpen] = useState(false);
-    const [alertOpen, setAlertOpen] = useState(false);
-    const [alertMessage, setAlertMessage] = useState('');
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [emailError, setEmailError] = useState(false);
-    const [emailErrorMsg, setEmailErrorMsg] = useState('');
-    const [passwordError, setPasswordError] = useState(false);
-    const [passwordErrorMsg, setPasswordErrorMsg] = useState('');
-
-
-    const {isAuthLoading, login} = useAuth();
-
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -46,108 +29,7 @@ const SignIn = () => {
     const handleClose = () => {
         setOpen(false);
     };
-    const clearErrors = () => {
-        setAlertOpen(false);
-        setEmailError(false);
-        setEmailErrorMsg('');
-        setPasswordError(false);
-        setPasswordErrorMsg('')
-    }
-
-    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        clearErrors();
-        try {
-            await login(email, password);
-        } catch (error) {
-            if (error instanceof AxiosError && error.response) {
-                const data = error.response.data;
-                if (error.response.status === 400) {
-                    if (data.email) {
-                        setEmailError(true);
-                        setEmailErrorMsg(data.email);
-                    }
-                    if (data.password) {
-                        setPasswordError(true);
-                        setPasswordErrorMsg(data.password);
-                    }
-                } else {
-                    setAlertMessage(data.detail);
-                    setAlertOpen(true);
-                }
-            } else {
-                setAlertOpen(true);
-                setAlertMessage('Something went wrong. Please try again later or contact support.');
-            }
-        }
-        // try {
-        //     await login(email, password);
-        //     navigate('/');
-        // } catch (error) {
-        //     console.log(error)
-        // }
-        // const payload = {
-        //     email: email,
-        //     password: password
-        // }
-        //
-        // apiClient.post('/auth/sign-in/', payload)
-        //     .then(res => {
-        //         tokenStore.setAccess(res.data.access)
-        //         tokenStore.setRefresh(res.data.refresh)
-        //         setEmail('');
-        //         setPassword('');
-        //         // setIsSignedIn(true);
-        //         const jwtPayload = JSON.parse(atob(res.data.access.split('.')[1]));
-        //         if (jwtPayload) {
-        //             if ('admin' in jwtPayload) {
-        //                 // setIsAdmin(jwtPayload.admin);
-        //                 console.log("is admin")
-        //             } else {
-        //                 // setIsAdmin(false);
-        //                 console.log("is not admin")
-        //             }
-        //
-        //         } else {
-        //             // setIsAdmin(false);
-        //             console.log("jwt payload is null")
-        //         }
-        //     })
-        //     .then(() => {
-        //         apiClient.get<IUser>('/auth/users/me/')
-        //             .then(res => {
-        //                 sessionStorage.setItem('user', JSON.stringify(res.data));
-        //             })
-        //             .catch(err => {
-        //                     console.log(err);
-        //                 }
-        //             )
-        //     })
-        //     .catch(err => {
-        //         if (err.response) {
-        //             const data = err.response.data;
-        //             if (err.response.status === 400) {
-        //                 if (data.email) {
-        //                     setEmailError(true);
-        //                     setEmailErrorMsg(() => (data.email));
-        //                 }
-        //                 if (data.password) {
-        //                     setPasswordError(true);
-        //                     setPasswordErrorMsg(() => (data.password));
-        //                 }
-        //             } else {
-        //                 setAlertMessage(() => (data.detail));
-        //                 setAlertOpen(true);
-        //             }
-        //         } else {
-        //             setAlertOpen(true);
-        //             setAlertMessage('Something went wrong. Please try again later or contact support.')
-        //         }
-        //
-        //     })
-
-    }
-
+    //===============================================================
     return (
         <>
             <Typography
@@ -156,12 +38,9 @@ const SignIn = () => {
                 sx={{width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)'}}>
                 Sign in
             </Typography>
-            <Collapse in={alertOpen}>
-                <Alert severity="error">{alertMessage}</Alert>
-            </Collapse>
             <Box
                 component="form"
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit(onSubmit)}
                 noValidate
                 sx={{
                     display: 'flex',
@@ -169,43 +48,10 @@ const SignIn = () => {
                     width: '100%',
                     gap: 2,
                 }}>
-                <FormControl>
-                    <FormLabel htmlFor="email">Email</FormLabel>
-                    <StyledTextField
-                        id="email"
-                        type="email"
-                        name="email"
-                        placeholder="your@email.com"
-                        autoComplete="email"
-                        required
-                        variant="outlined"
-                        autoFocus
-                        value={email}
-                        onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                            setEmail(event.target.value);
-                        }}
-                        error={emailError}
-                        helperText={emailErrorMsg}
-                        color={emailError ? 'error' : 'primary'}/>
-                </FormControl>
-                <FormControl>
-                    <FormLabel htmlFor="password">Password</FormLabel>
-                    <StyledTextField
-                        id="password"
-                        type="password"
-                        name="password"
-                        placeholder="••••••"
-                        autoComplete="current-password"
-                        required
-                        variant="outlined"
-                        value={password}
-                        onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                            setPassword(event.target.value);
-                        }}
-                        error={passwordError}
-                        helperText={passwordErrorMsg}
-                        color={passwordError ? 'error' : 'primary'}/>
-                </FormControl>
+                <LpTextField<SignInSchema> control={control} id={"email"} name={"email"} label={"Email"} type={"email"}
+                                           defaultValue={""} variant="outlined"/>
+                <LpTextField<SignInSchema> control={control} id={"password"} name={"password"} label={"Password"}
+                                           type={"password"} defaultValue={""} variant="outlined"/>
                 <FormControlLabel
                     control={<Checkbox value="remember" color="primary"/>}
                     label="Remember me"/>
@@ -214,7 +60,6 @@ const SignIn = () => {
                     disabled={isAuthLoading}
                     type="submit"
                     fullWidth
-                    // onClick={validateInputs}
                     variant="contained">
                     Sign in
                 </LpButton>
@@ -249,6 +94,7 @@ const SignIn = () => {
                 </Typography>
             </Box>
             <ResetPassword open={open} handleClose={handleClose}/>
+            <LpBackdrop isLoading={isAuthLoading} alertState={alertState} closeAlert={hideAlert}/>
         </>
     )
 }
