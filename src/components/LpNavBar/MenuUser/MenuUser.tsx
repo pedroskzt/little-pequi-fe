@@ -12,7 +12,7 @@ import {useAuth} from "../../../context/auth/AuthContext.ts";
 
 const MenuUser = () => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-    const {isAdmin, user, logout} = useAuth();
+    const {isAdmin, user, signOut} = useAuth();
     const navigate = useNavigate();
 
     const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
@@ -36,8 +36,8 @@ const MenuUser = () => {
             case 'Orders':
                 navigate('/user/order');
                 break;
-            case 'Logout':
-                await logout();
+            case 'Sign Out':
+                await signOut();
                 navigate('/');
                 break;
         }
@@ -69,6 +69,7 @@ const MenuUser = () => {
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}>
+                {/*This is a UI hint! Backend enforces admin endpoints.*/}
                 {isAdmin &&
                     <MenuItem onClick={handleClick}
                               sx={{
@@ -119,7 +120,7 @@ const MenuUser = () => {
                         fontSize: '1rem',
                         fontWeight: 'bolder'
                     }}>
-                        Logout
+                        Sign Out
                     </Typography>
                 </MenuItem>
             </Menu>
