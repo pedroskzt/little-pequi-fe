@@ -105,7 +105,7 @@ const SignUp = () => {
                 component="h1"
                 variant="h4"
                 sx={{width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)'}}>
-                Sign up
+                Sign Up
             </Typography>
             <Collapse in={defaultError}>
                 <Alert severity="error">Something went wrong. Please try again later or contact support.</Alert>
@@ -197,7 +197,7 @@ const SignUp = () => {
                     fullWidth
                     // onClick={validateInputs}
                     variant="contained">
-                    Sign up
+                    Sign Up
                 </LpButton>
             </Box>
             <Divider>or</Divider>
@@ -212,7 +212,7 @@ const SignUp = () => {
                             color: 'var(--tertiary-color)',
                             opacity: 0.65,
                         }}>
-                        Sign in
+                        Sign In
                     </Link>
                 </Typography>
             </Box>

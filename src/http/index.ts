@@ -1,6 +1,6 @@
 import {AxiosError, AxiosInstance} from "axios";
 import axios from "axios";
-import {fireLogoutCallback, tokenStore} from "./auth.ts";
+import {fireSignOutCallback, tokenStore} from "./auth.ts";
 
 
 
@@ -50,7 +50,7 @@ const refreshToken = async (): Promise<string> => {
         tokenStore.clear(); //Redundant?
 
         // Fire logout callback
-        fireLogoutCallback();
+        fireSignOutCallback();
         throw error;
     }
 };
