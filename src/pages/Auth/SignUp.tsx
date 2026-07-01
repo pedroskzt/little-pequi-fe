@@ -14,7 +14,7 @@ import {styled} from "@mui/material/styles";
 import CircularProgress from '@mui/material/CircularProgress';
 import LpButton from "../../components/LpButton/LpButton.tsx";
 import {FormEvent, useState} from "react";
-import apiClient from "../../http";
+import {apiClient} from "../../http";
 import {useNavigate} from "react-router";
 
 

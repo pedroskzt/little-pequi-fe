@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import {useEffect, useState} from "react";
 import LpCard from "../../components/LpCard/LpCard.tsx";
 import LpImage from "../../components/LpImage/LpImage.tsx";
-import apiClient from "../../http";
+import {apiClient} from "../../http";
 import ICategory from "../../interfaces/ICategory.ts";
 
 const RestaurantMenu = () => {
