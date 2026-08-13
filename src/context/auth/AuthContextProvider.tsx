@@ -3,7 +3,7 @@ import {ReactNode, useState} from "react";
 import {IAuthContextProps} from "./AuthContext";
 import {AuthContext} from "./AuthContext";
 import {authChannel, AuthMessage, setSignOutCallback, tokenStore} from "../../http/auth.ts";
-import apiClient from "../../http";
+import {apiClient, refreshClient} from "../../http";
 import IUser from "../../interfaces/IUser.ts";
 import {AxiosError, isAxiosError} from "axios";
 
@@ -35,24 +35,20 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
             setUser(null);
         });
 
-        const token = tokenStore.getAccess();
-        if (!token) {
-            setIsBootstrapping(false);
+        refreshClient.post<{ access: string }>('/auth/refresh/')
+        .then(response => {
+            tokenStore.setAccess(response.data.access);
+            return apiClient.get<IUser>('/auth/users/me/');
+        })
+        .then(response => setUser(response.data))
+        .catch(() => {
+            // No valid refresh cookie → signed out. Expected on first visit.
+            tokenStore.clear();
+        })
+        .finally(() => {
+            setIsBootstrapping(false)
             setIsAuthLoading(false);
-            return;
-        }
-        apiClient.get<IUser>('/auth/users/me/')
-            .then(res => {
-                setUser(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-                tokenStore.clear();
-            })
-            .finally(() => {
-                setIsAuthLoading(false);
-                setIsBootstrapping(false);
-            })
+        });
     }, []);
 
     const isSignedIn = user !== null;
@@ -62,8 +58,8 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
         setIsAuthLoading(true);
         try {
             const {data} = await apiClient.post("/auth/sign-in/", {email, password});
+
             tokenStore.setAccess(data.access);
-            tokenStore.setRefresh(data.refresh);
             const me = await apiClient.get<IUser>("/auth/users/me/");
             setUser(me.data);
         } catch (error) {
@@ -84,7 +80,6 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
 
     const signOut = useCallback(async () => {
         try {
-            // const refreshToken = tokenStore.getRefresh();
             const response = await apiClient.post('/auth/sign-out/');
             console.log(response.data);
         } catch (error) {
