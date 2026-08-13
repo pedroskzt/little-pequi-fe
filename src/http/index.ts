@@ -6,13 +6,16 @@ import {fireSignOutCallback, tokenStore} from "./auth.ts";
 
 const apiClient: AxiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
-})
+    withCredentials: true,
+});
 
 // Separate instance with no interceptors — used only for token refresh
 // to avoid triggering the request interceptor recursively.
 const refreshClient: AxiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
-})
+    withCredentials: true,
+    headers: {"X-Requested-With": "XMLHttpRequest"},
+});
 
 // Flag to prevent multiple simultaneous refresh attempts
 let isRefreshing = false;
@@ -33,12 +36,9 @@ const processQueue = (error: AxiosError | null, token: string | null = null) => 
 };
 
 const refreshToken = async (): Promise<string> => {
-    const refresh = tokenStore.getRefresh()
-    if (!refresh) throw new Error('No refresh token available');
-
     try {
         // Request new token
-        const response = await refreshClient.post('/auth/refresh/', {refresh});
+        const response = await refreshClient.post('/auth/refresh/');
 
         // Update token in session storage
         const newToken = response.data.access;
@@ -114,4 +114,4 @@ apiClient.interceptors.response.use(response => response,
     }
 )
 
-export default apiClient;
+export {apiClient, refreshClient};
