@@ -1,19 +1,15 @@
+let accessToken: string | null = null;
+
 export const tokenStore = {
-    ACCESS_KEY: "token", //Necessary?
-    REFRESH_KEY: "refresh", //Necessary?
-    getAccess: () => sessionStorage.getItem("token"),
-    getRefresh: () => sessionStorage.getItem("refresh"),
-    setAccess: (token: string) => sessionStorage.setItem("token", token),
-    setRefresh: (token: string) => sessionStorage.setItem("refresh", token),
+    getAccess: () => accessToken,
+    setAccess: (token: string) => { accessToken = token; },
     clear: () => {
-        sessionStorage.removeItem("token");
-        sessionStorage.removeItem("refresh");
+        accessToken = null;
     },
 };
 
-// May be temporary, double check after moving backend to and frontend to HTTPCookie_only
 export const authChannel = new BroadcastChannel('auth');
-export type AuthMessage = { type: 'signOut' } | { type: 'signIn' };
+export type AuthMessage = { type: 'signOut' };
 
 type SignOutCallback = () => void;
 let signOutCallback: SignOutCallback | null = null;
