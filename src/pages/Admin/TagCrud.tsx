@@ -2,7 +2,7 @@ import {GridColDef} from "@mui/x-data-grid";
 import {useState} from "react";
 import {useEffect} from "react";
 import LpBackdrop from "../../components/LpBackdrop/LpBackdrop.tsx";
-import apiClient from "../../http";
+import {apiClient} from "../../http";
 import IAction from "../../interfaces/IAction.ts";
 import ITag from "../../interfaces/ITag.ts";
 import CrudAdminBase from "./components/CrudAdminBase.tsx";

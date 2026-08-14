@@ -14,11 +14,11 @@ jobs:
     steps:
       # Check out the repository code
       - name: Checkout branch
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       # Set up a Node.js environment with a specific version
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 24
 

@@ -6,14 +6,16 @@ import Typography from "@mui/material/Typography";
 import {useEffect, useState} from "react";
 import LpCard from "../../components/LpCard/LpCard.tsx";
 import LpImage from "../../components/LpImage/LpImage.tsx";
-import apiClient from "../../http";
+import {apiClient} from "../../http";
 import ICategory from "../../interfaces/ICategory.ts";
 
 const RestaurantMenu = () => {
     const [categories, setCategories] = useState<ICategory[]>([]);
     const [selectedTab, setSelectedTab] = useState<number>(0);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
+        setIsLoading(true);
         apiClient.get<ICategory[]>('/api/v1/category/menu-items')
             .then(response => {
                 setCategories(response.data);
@@ -22,6 +24,7 @@ const RestaurantMenu = () => {
                     console.log(error);
                 }
             )
+            .finally(() => setIsLoading(false));
     }, [])
     return (
         <>
@@ -44,7 +47,7 @@ const RestaurantMenu = () => {
                 </Tabs>
 
 
-                {!categories.length && <Box sx={{
+                {!isLoading && !categories.length && <Box sx={{
                     textAlign: "center",
                 }}>
                     <LpImage src={"https://storage.googleapis.com/little-pequi/assets/under_construction.jpg"} alt="Page Under Construction"/>
