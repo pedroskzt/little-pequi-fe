@@ -10,18 +10,15 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import {useEffect} from "react";
 import {useState} from "react";
 import {useNavigate} from "react-router";
 import {Outlet} from "react-router"
-import {useAuth} from "../../context/auth/AuthContext.ts";
 import CrudAdminContextProvider from "./context/CrudAdminContextProvider.tsx";
 
 
 const Admin = () => {
     const [openMenu, setOpenMenu] = useState(false);
     const navigate = useNavigate();
-    const auth = useAuth();
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpenMenu(newOpen);
     };
@@ -62,11 +59,7 @@ const Admin = () => {
             <Divider/>
         </Box>
     );
-    useEffect(() => {
-        if (!auth.isAdmin || !auth.isSignedIn) {
-            navigate('/auth/sign-in');
-        }
-    })
+
     return (
         <>
             <Stack direction={"row"} flexDirection={"column"} sx={{my: 2, position: 'relative'}}
