@@ -5,7 +5,7 @@ import {useState} from "react";
 import {useEffect} from "react";
 import LpBackdrop from "../../components/LpBackdrop/LpBackdrop.tsx";
 import GridCellExpand from "../../components/LpDataGrid/GridCellExpand.tsx";
-import {apiClient} from "../../http";
+import apiClient from "../../http";
 import IAction from "../../interfaces/IAction.ts";
 import IMenuItem from "../../interfaces/IMenuItem.ts";
 import ITag from "../../interfaces/ITag.ts";

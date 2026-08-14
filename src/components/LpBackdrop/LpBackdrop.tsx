@@ -8,11 +8,11 @@ import IAlert from "../../interfaces/IAlert.ts";
 
 interface ILpBackdropProps {
     isLoading: boolean;
-    alertState: IAlert;
-    closeAlert: () => void;
+     alertState: IAlert;
+     closeAlert: () => void;
 }
 
-const LpBackdrop = (props: ILpBackdropProps) => {
+const LpBackdrop = (props:ILpBackdropProps) => {
     const {isLoading, alertState, closeAlert} = props
 
     return (
@@ -38,7 +38,7 @@ const LpBackdrop = (props: ILpBackdropProps) => {
                     alertState.open ? closeAlert : () => {
                     }
                 }
-                sx={(theme) => (
+                sx={(theme) =>(
                     {color: '#fff', zIndex: theme.zIndex.drawer + 1}
                 )}>
                 <CircularProgress/>

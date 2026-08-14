@@ -19,7 +19,7 @@ import {useReducer} from "react";
 import {MouseEvent, SetStateAction} from "react";
 import {Dispatch} from "react";
 import {useState} from "react";
-import {apiClient} from "../../http";
+import apiClient from "../../http";
 import IAction from "../../interfaces/IAction.ts";
 import IAlert from "../../interfaces/IAlert.ts";
 import IListItem from "../../interfaces/IListItem.ts";

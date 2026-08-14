@@ -95,7 +95,7 @@ const CrudAdminBase = (props: ICrudAdminBaseProps) => {
                 rows={rows}
                 slots={{
                     toolbar: () => DataGridToolBar({
-                        gridTitle: label, addButtonToolTip: "Add new item", reorderButtonToolTip: "Change items order", onClick: handleOpenForm, showFilter: true, reorder: reorder
+                        gridTitle: label, addButtonToolTip: "Add new item", reorderButtonToolTip: "Change items order", onClick: handleOpenForm, showFilter: true
                     })
                 }}
                 showToolbar

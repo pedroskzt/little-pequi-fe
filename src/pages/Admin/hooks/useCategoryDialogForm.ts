@@ -6,7 +6,7 @@ import {UseFormHandleSubmit} from "react-hook-form";
 import {Control} from "react-hook-form";
 import {useForm} from "react-hook-form";
 
-import {apiClient} from "../../../http";
+import apiClient from "../../../http";
 import IAction from "../../../interfaces/IAction.ts";
 import IAlert from "../../../interfaces/IAlert.ts";
 import ICategory from "../../../interfaces/ICategory.ts";

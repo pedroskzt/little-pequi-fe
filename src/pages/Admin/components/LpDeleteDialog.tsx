@@ -4,7 +4,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import LpButton from "../../../components/LpButton/LpButton.tsx";
-import {apiClient} from "../../../http";
+import apiClient from "../../../http";
 import IAction from "../../../interfaces/IAction.ts";
 import {useCrudAdminContext} from "../context/CrudAdminContext.ts";
 

@@ -1,88 +1,78 @@
-import {AxiosError, AxiosInstance} from "axios";
+import {AxiosError} from "axios";
 import axios from "axios";
-import {fireSignOutCallback, tokenStore} from "./auth.ts";
 
 
-
-const apiClient: AxiosInstance = axios.create({
+const apiClient = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
-    withCredentials: true,
-});
 
-// Separate instance with no interceptors — used only for token refresh
-// to avoid triggering the request interceptor recursively.
-const refreshClient: AxiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_BACKEND_URL,
-    withCredentials: true,
-    headers: {"X-Requested-With": "XMLHttpRequest"},
-});
+})
 
 // Flag to prevent multiple simultaneous refresh attempts
 let isRefreshing = false;
 
 // Queue to store failed requests while refreshing
-type QueueItem = {
-    resolve: (value: string) => void;
-    reject: (error: AxiosError) => void;
-}
-let failedQueue: QueueItem[] = [];
+let failedQueue: Array<{
+    resolve: (value?: any) => void;
+    reject: (error?: any) => void;
+}> = [];
 
 const processQueue = (error: AxiosError | null, token: string | null = null) => {
     failedQueue.forEach(({resolve, reject}) => {
-        if (error) reject(error);
-        else resolve(token as string);
+        if (error) {
+            reject(error);
+        } else {
+            resolve(token);
+        }
     });
+
     failedQueue = [];
 };
 
 const refreshToken = async (): Promise<string> => {
+    const payload = {
+        refresh: sessionStorage.getItem('refresh'),
+    }
+    if (!payload.refresh) {
+        throw new Error('No refresh token available');
+    }
+
     try {
         // Request new token
-        const response = await refreshClient.post('/auth/refresh/');
+        const response = await apiClient.post('/auth/refresh/', payload);
 
         // Update token in session storage
         const newToken = response.data.access;
-        tokenStore.setAccess(newToken);
+        sessionStorage.setItem('token', newToken);
 
         return newToken;
     } catch (error) {
         // Clear tokens on refresh failure
-        tokenStore.clear(); //Redundant?
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('refresh');
 
-        // Fire logout callback
-        fireSignOutCallback();
+        // Redirect to sign-in or dispatch logout action
+        window.location.href = '/login';
+
         throw error;
     }
 };
 
-// Request interceptor — attaches the current access token (JWT scheme for Djoser)
-apiClient.interceptors.request.use(
-    (config) => {
-        const token = tokenStore.getAccess();
-        if (token && config.headers) {
-            config.headers.Authorization = `JWT ${token}`;
-        }
 
-        return config;
-    }, (error) => {
-        console.log(error);
-        return Promise.reject(error);
-    })
-
-// Response interceptor — refreshes on 401, queues concurrent requests
+// Response interceptor for handling token refresh
 apiClient.interceptors.response.use(response => response,
-    async (responseError: AxiosError) => {
-        const originalRequest = responseError.config as typeof responseError.config & { _retry?: boolean };
-        if (responseError.response?.status === 401 && !originalRequest?._retry) {
+    async (responseError) => {
+        const originalRequest = responseError.config;
+
+        if (responseError.response.status === 401 && !originalRequest._retry) {
             if (isRefreshing) {
                 // If already refreshing, queue this request
-                return new Promise<string>((resolve, reject) => {
+                return new Promise((resolve, reject) => {
                     failedQueue.push({resolve, reject});
                 }).then(token => {
-                    if (originalRequest?.headers) {
+                    if (originalRequest.headers) {
                         originalRequest.headers.Authorization = `JWT ${token}`;
                     }
-                    return apiClient(originalRequest!);
+                    return apiClient(originalRequest);
                 }).catch(error => {
                     return Promise.reject(error);
                 });
@@ -96,11 +86,11 @@ apiClient.interceptors.response.use(response => response,
                 const newToken = await refreshToken();
                 processQueue(null, newToken);
 
-                if (originalRequest?.headers) {
+                if (originalRequest.headers) {
                     originalRequest.headers.Authorization = `JWT ${newToken}`;
                 }
 
-                return apiClient(originalRequest!);
+                return apiClient(originalRequest);
             } catch (refreshError) {
                 console.log("Fail", refreshError)
                 processQueue(refreshError as AxiosError, null);
@@ -114,4 +104,34 @@ apiClient.interceptors.response.use(response => response,
     }
 )
 
-export {apiClient, refreshClient};
+// Check if the token is expired
+const isTokenExpired = (token: string): boolean => {
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        return payload.exp * 1000 < Date.now();
+    } catch {
+        return true;
+    }
+};
+
+// Request interceptor to add token to headers
+apiClient.interceptors.request.use(
+    async (config) => {
+        let token = sessionStorage.getItem('token');
+
+        if (token && config.headers) {
+            if (isTokenExpired(token)) {
+                await refreshToken();
+                token = sessionStorage.getItem('token');
+            }
+            config.headers.Authorization = `JWT ${token}`;
+        }
+
+        return config;
+    }, (error) => {
+        console.log(error);
+        return Promise.reject(error);
+    })
+
+
+export default apiClient;

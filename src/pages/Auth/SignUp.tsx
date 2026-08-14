@@ -14,7 +14,7 @@ import {styled} from "@mui/material/styles";
 import CircularProgress from '@mui/material/CircularProgress';
 import LpButton from "../../components/LpButton/LpButton.tsx";
 import {FormEvent, useState} from "react";
-import {apiClient} from "../../http";
+import apiClient from "../../http";
 import {useNavigate} from "react-router";
 
 
@@ -105,7 +105,7 @@ const SignUp = () => {
                 component="h1"
                 variant="h4"
                 sx={{width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)'}}>
-                Sign Up
+                Sign up
             </Typography>
             <Collapse in={defaultError}>
                 <Alert severity="error">Something went wrong. Please try again later or contact support.</Alert>
@@ -197,7 +197,7 @@ const SignUp = () => {
                     fullWidth
                     // onClick={validateInputs}
                     variant="contained">
-                    Sign Up
+                    Sign up
                 </LpButton>
             </Box>
             <Divider>or</Divider>
@@ -212,7 +212,7 @@ const SignUp = () => {
                             color: 'var(--tertiary-color)',
                             opacity: 0.65,
                         }}>
-                        Sign In
+                        Sign in
                     </Link>
                 </Typography>
             </Box>

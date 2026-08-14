@@ -10,7 +10,6 @@ import DataGridQuickFilter from "./DataGridQuickFilter.tsx";
 interface IDataGridToolBarProps {
     gridTitle: string;
     showFilter?: boolean;
-    reorder?: boolean;
     onClick?: (form: "inputForm" | "displayOrder") => void;
     addButtonToolTip?: string;
     reorderButtonToolTip?: string;
@@ -18,7 +17,7 @@ interface IDataGridToolBarProps {
 
 
 const DataGridToolBar = (props: IDataGridToolBarProps) => {
-    const {gridTitle, showFilter, reorder, onClick, addButtonToolTip, reorderButtonToolTip} = props;
+    const {gridTitle, showFilter, onClick, addButtonToolTip, reorderButtonToolTip} = props;
 
     return (
         <Toolbar>
@@ -37,7 +36,7 @@ const DataGridToolBar = (props: IDataGridToolBarProps) => {
                     }}>
                     </ToolbarButton>
                 </Tooltip>}
-            {(reorder && onClick) &&
+            {(reorderButtonToolTip && onClick) &&
                 <Tooltip title={reorderButtonToolTip}>
                     <ToolbarButton render={(triggerProps) => {
                         const {color: _, ...props} = triggerProps;

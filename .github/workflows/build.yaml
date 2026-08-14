@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v5
 
       # Generate short SHA for Docker image tagging
       - name: Set short git commit SHA
@@ -38,7 +38,7 @@ jobs:
 
       # Authenticate with GitHub Container Registry
       - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v4
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -46,7 +46,7 @@ jobs:
 
       # Build and push Docker image
       - name: Build and push Docker image
-        uses: docker/build-push-action@v7
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile

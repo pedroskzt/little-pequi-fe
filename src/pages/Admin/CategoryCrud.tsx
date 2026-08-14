@@ -3,7 +3,7 @@ import {useState} from "react";
 import {useEffect} from "react";
 import LpBackdrop from "../../components/LpBackdrop/LpBackdrop.tsx";
 import LpListReorderDialog from "../../components/LpList/LpListReorderDialog.tsx";
-import {apiClient} from "../../http";
+import apiClient from "../../http";
 import IAction from "../../interfaces/IAction.ts";
 import ICategory from "../../interfaces/ICategory.ts";
 import CrudAdminBase from "./components/CrudAdminBase.tsx";

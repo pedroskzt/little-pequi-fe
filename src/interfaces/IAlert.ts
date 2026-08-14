@@ -1,7 +1,5 @@
-import {AlertColor} from "@mui/material/Alert";
-
 interface IAlert {
-    severity: AlertColor;
+    severity: 'success' | 'error' | 'info';
     message: string;
     open: boolean;
 }
