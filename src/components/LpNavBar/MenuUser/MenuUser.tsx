@@ -12,9 +12,8 @@ import {useAuth} from "../../../context/auth/AuthContext.ts";
 
 const MenuUser = () => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-    const {isAdmin, setIsAdmin, setIsSignedIn} = useAuth();
+    const {isAdmin, user, signOut} = useAuth();
     const navigate = useNavigate();
-    const user = JSON.parse(sessionStorage.getItem('user') || '{"first_name": "Anonymous"}');
 
     const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
@@ -24,7 +23,7 @@ const MenuUser = () => {
         setAnchorElUser(null);
     };
 
-    const handleClick = (event: MouseEvent<HTMLElement>) => {
+    const handleClick = async (event: MouseEvent<HTMLElement>) => {
         const selection = event.currentTarget.textContent;
         handleCloseUserMenu();
         switch (selection) {
@@ -37,11 +36,9 @@ const MenuUser = () => {
             case 'Orders':
                 navigate('/user/order');
                 break;
-            case 'Logout':
-                sessionStorage.removeItem('token');
-                sessionStorage.removeItem('user');
-                setIsSignedIn(false)
-                setIsAdmin(false);
+            case 'Sign Out':
+                await signOut();
+                navigate('/');
                 break;
         }
     }
@@ -51,7 +48,7 @@ const MenuUser = () => {
         }}>
             <Tooltip title="Open user menu">
                 <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                    <Avatar alt={user.first_name}/>
+                    <Avatar alt={user?.first_name ?? 'Anonymous'}/>
                 </IconButton>
             </Tooltip>
             <Menu
@@ -72,6 +69,7 @@ const MenuUser = () => {
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}>
+                {/*This is a UI hint! Backend enforces admin endpoints.*/}
                 {isAdmin &&
                     <MenuItem onClick={handleClick}
                               sx={{
@@ -122,7 +120,7 @@ const MenuUser = () => {
                         fontSize: '1rem',
                         fontWeight: 'bolder'
                     }}>
-                        Logout
+                        Sign Out
                     </Typography>
                 </MenuItem>
             </Menu>
